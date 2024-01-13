@@ -1,0 +1,10 @@
+{
+  "count": 54,
+  "minRadius": 10,
+  "maxRadius": 30,
+  "minSpeed": 1,
+  "maxSpeed": 3,
+  "text": "\u2744",
+  "color": "#ffffff",
+  "zIndex": "10"
+}

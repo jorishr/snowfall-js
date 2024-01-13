@@ -1,0 +1,70 @@
+/* The toggle has various components: 
+   - The guiding text next to it either left or right of the toggle with flexbox. 
+   - The checkbox element itself is made invisible, only use the form functionality.
+   - The label element is what is visible to the user.
+   - The toggle is able to scale with the font-size of the guiding text.
+   - You may have to adjust the line-height to get the desired alignment
+*/
+:root {
+  --bgClr: rgba(250, 250, 250, 1);
+  --bgClr-accent: rgba(200, 200, 200);
+  --bgClr-accent-contrast: rgba(1, 1, 1);
+  --accent: red;
+}
+
+.snow-animation-switch {
+  display: none;
+}
+
+.snow-animation-switch--show {
+  display: flex;
+  justify-content: center;
+}
+
+.snow-animation-switch__text {
+  margin-left: var(--mg-xs);
+  line-height: 1.25;
+  order: 2;
+}
+
+.snow-animation-switch__input {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.snow-animation-switch__input:checked + label {
+  background: var(--bgClr-accent);
+}
+
+.snow-animation-switch__input:checked + label::after {
+  left: calc(100% - 0.125em); /* 100& - 2px */
+  transform: translateX(-100%);
+}
+
+.snow-animation-switch__label {
+  position: relative;
+  display: block;
+  text-indent: -9999px;
+  cursor: pointer;
+  width: 2.5em; /* 40px */
+  height: 1.25em; /* 20px */
+  background: var(--bgClr-accent-contrast);
+  border-radius: 1.25em; /* 20px, equal to height */
+}
+
+.snow-animation-switch__label:active::after {
+  width: 1.375em; /* 22px */
+}
+
+.snow-animation-switch__label::after {
+  content: "";
+  position: absolute;
+  top: 0.125em; /* 2px */
+  left: 0.125em; /* 2px */
+  width: 1em; /* 16px */
+  height: 1em; /* 16px */
+  background: var(--accent);
+  border-radius: 1em; /* 16px */
+  transition: 0.3s;
+}
