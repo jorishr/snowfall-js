@@ -1,6 +1,6 @@
-import { checkDateRange } from "checkDateRange.js";
-import { checkHardware } from "checkHardware.js";
+import { checkDateRange } from "./checkDateRange.js";
+import { checkHardware } from "./checkHardware.js";
 
-export default function canRunAnimation() {
+export function canRunAnimation() {
   return checkDateRange() && checkHardware();
 }

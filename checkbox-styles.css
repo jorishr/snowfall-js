@@ -5,11 +5,12 @@
    - The toggle is able to scale with the font-size of the guiding text.
    - You may have to adjust the line-height to get the desired alignment
 */
+
 :root {
   --bgClr: rgba(250, 250, 250, 1);
   --bgClr-accent: rgba(200, 200, 200);
   --bgClr-accent-contrast: rgba(1, 1, 1);
-  --accent: red;
+  --accent: #fff;
 }
 
 .snow-animation-switch {
@@ -22,7 +23,7 @@
 }
 
 .snow-animation-switch__text {
-  margin-left: var(--mg-xs);
+  margin-left: 0.75em;
   line-height: 1.25;
   order: 2;
 }

@@ -1,13 +1,18 @@
-import { Snowfall } from "snowfall.js";
-import { checkUserSettings } from "userSettings.js";
-import { canRunAnimation } from "canRunAnimation.js";
+import { Snowfall } from "./snowfall.js";
+import { checkUserSettings } from "./userSettings.js";
+import { canRunAnimation } from "./canRunAnimation.js";
+import {
+  switchesAppendToDOM,
+  switchesSetupEventHandlers,
+  switchesToggleOn,
+} from "./checkbox.js";
 /* 
   - The selector querySelectorAll is static. That's why in the eventListener block, the checkboxes are selected again. The click event has changed the state of the DOM. 
   - Checkboxes have different id's
   - Code synchronizes the state of the checkboxes in menu and footer
   - The visible part of the checkbox is the label element. Find the target element property and select the previous sibling, which is the checkbox input element
 */
-export default function animationStart() {
+export function animationStart() {
   const canRun = canRunAnimation();
 
   if (canRun) {
@@ -15,20 +20,19 @@ export default function animationStart() {
     let snowfall;
     let isAnimationRunning;
 
-    checkboxesAppendToDOM();
-    initSnowFall();
+    switchesAppendToDOM();
 
     if (userPreference) {
       snowfall = initSnowFall();
       isAnimationRunning = true;
-      checkboxesToggleOn();
+      switchesToggleOn();
     }
 
-    checkboxesSetupEventHandlers(isAnimationRunning);
+    switchesSetupEventHandlers(isAnimationRunning, snowfall);
   }
 }
 
-function initSnowFall() {
+export function initSnowFall() {
   const snowfall = new Snowfall({
     // number of snowflakes
     count: 54,
