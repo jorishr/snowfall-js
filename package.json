@@ -1,0 +1,29 @@
+{
+  "name": "snowfall-animation",
+  "description": "Snowfall.js is a JavaScript library for creating and animating snowflakes on a web page using HTML5 canvas and JavaScript classes. You can customize the number, size, speed, color and text of the snowflakes, and enjoy the beautiful snow falling effect on your website or app. Snowfall.js is easy to use and compatible with most browsers and devices. Try it now and add some winter magic to your project.",
+  "version": "0.0.1",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jorishr/snowfall-js.git"
+  },
+  "keywords": [
+    "snowfall",
+    "snow",
+    "animation",
+    "snowfall-animation"
+  ],
+  "author": "Joris Raymaekers",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/jorishr/snowfall-js/issues"
+  },
+  "homepage": "https://github.com/jorishr/snowfall-js#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

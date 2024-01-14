@@ -15,9 +15,5 @@ export default function checkDateRange() {
     currentMonth === 1 ||
     (currentMonth === endMonth && currentDay <= endDay);
 
-  if (isInDateRange) {
-    return true;
-  } else {
-    return false;
-  }
+  return isInDateRange;
 }
