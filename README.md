@@ -7,7 +7,7 @@ The plugins comes with optional features:
 - keyboard focusable and customizable switches to allow the users to toggle the animation on/off — simply add one or more containers with the proper class name;
 - store the user preferences in local storage;
 - enable hardware restriction to automatically disable the animation on low end devices;
-- enable a data range, for example, only activate the animation during winter months.
+- enable a date range: for example, only activate the animation during winter months.
 
 ## Installation
 
