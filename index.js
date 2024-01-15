@@ -5,7 +5,7 @@ import {
   switchesAppendToDOM,
   switchesSetupEventHandlers,
   switchesToggleOn,
-} from "./checkbox.js";
+} from "./switch.js";
 import { getDefaultParams } from "./getSnowfallParams.js";
 /* 
   - The selector querySelectorAll is static. That's why in the eventListener block, the checkboxes are selected again. The click event has changed the state of the DOM. 

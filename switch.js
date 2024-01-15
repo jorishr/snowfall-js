@@ -1,6 +1,7 @@
 import { setUserSettings } from "./userSettings.js";
 import { initSnowfall, snowfallState } from "./index.js";
 
+/* Find container elements in the DOM */
 export function switchesAppendToDOM() {
   const switchContainers = [
     ...document.querySelectorAll(".snow-animation-switch"),
@@ -8,12 +9,8 @@ export function switchesAppendToDOM() {
   if (switchContainers.length > 0) {
     switchContainers.forEach((container, i) => {
       const switchElements = buildSwitch(i);
-      switchElements.forEach((switchElement) =>
-        container.appendChild(switchElement)
-      );
+      switchElements.forEach((elem) => container.appendChild(elem));
       container.classList.add("snow-animation-switch--show");
-      const lastChild = container.lastElementChild;
-      lastChild.style.marginRight = "0";
     });
     injectCSS();
     console.log(
@@ -38,6 +35,7 @@ function buildSwitch(i) {
   label.role = "checkbox";
   label.htmlFor = `snow-animation-switch__input${i}`;
   label.ariaChecked = false;
+  label.tabIndex = 0;
 
   textElem.classList.add("snow-animation-switch__text");
   textElem.textContent = "Snow on/off";
@@ -49,7 +47,7 @@ function injectCSS() {
   const linkElement = document.createElement("link");
   linkElement.rel = "stylesheet";
   linkElement.type = "text/css";
-  linkElement.href = "../checkbox-styles.css";
+  linkElement.href = "../switchStyles.css";
   document.head.appendChild(linkElement);
 }
 
@@ -63,43 +61,56 @@ export function switchesToggleOn() {
   });
 }
 
+/* the label element is the visible part of the switch */
 export function switchesSetupEventHandlers() {
-  const labelElems = [
-    ...document.querySelectorAll(".snow-animation-switch__label"),
-  ];
+  const labelElems = document.querySelectorAll(".snow-animation-switch__label");
   labelElems.forEach((label) => {
-    label.addEventListener("click", (event) => {
-      if (snowfallState.isAnimationRunning) {
-        snowfallState.snowfallInstance.destroy();
-        snowfallState.isAnimationRunning = false;
-        setUserSettings({ runSnowfallAnimation: false });
-        syncStateOtherSwitches(event);
-      } else {
-        snowfallState.snowfallInstance = initSnowfall();
-        snowfallState.isAnimationRunning = true;
-        setUserSettings({ runSnowfallAnimation: true });
-        syncStateOtherSwitches(event);
+    label.addEventListener("click", (event) => handleEvents(event));
+    label.addEventListener("keydown", (event) => {
+      event.preventDefault();
+      if (event.key === "Enter" || event.keyCode === 13) {
+        handleEvents(event, label);
       }
     });
   });
 }
 
-function syncStateOtherSwitches(event) {
-  [...document.querySelectorAll(".snow-animation-switch__input")].forEach(
-    (elem) => {
-      if (elem.id !== event.target.previousElementSibling.id) {
-        elem.checked = snowfallState.isAnimationRunning;
-        elem.ariaChecked = snowfallState.isAnimationRunning;
-      }
+function handleEvents(event, label) {
+  if (snowfallState.isAnimationRunning) {
+    stopAnimation(event);
+    /* the enter key event does not check the checkbox automatically */
+    if (label) {
+      label.previousElementSibling.checked = false;
+      label.previousElementSibling.ariaChecked = false;
     }
-  );
+  } else {
+    startAnimation(event);
+    if (label) {
+      label.previousElementSibling.checked = true;
+      label.previousElementSibling.ariaChecked = true;
+    }
+  }
 }
 
-/* element.addEventListener("keydown", (e) => {
-  if (e.key === "Enter" || e.keyCode === 13) {
-    e.preventDefault(); // prevent the click event on buttons
-    if (args) {
-      handler(...args);
-    } else handler();
-  }
-}); */
+function stopAnimation(event) {
+  snowfallState.snowfallInstance.destroy();
+  snowfallState.isAnimationRunning = false;
+  setUserSettings({ runSnowfallAnimation: false });
+  syncStateOtherSwitches(event);
+}
+
+function startAnimation(event) {
+  snowfallState.snowfallInstance = initSnowfall();
+  snowfallState.isAnimationRunning = true;
+  setUserSettings({ runSnowfallAnimation: true });
+  syncStateOtherSwitches(event);
+}
+
+function syncStateOtherSwitches(event) {
+  document.querySelectorAll(".snow-animation-switch__input").forEach((elem) => {
+    if (elem.id !== event.target.previousElementSibling.id) {
+      elem.checked = snowfallState.isAnimationRunning;
+      elem.ariaChecked = snowfallState.isAnimationRunning;
+    }
+  });
+}
