@@ -1,5 +1,5 @@
 import { setUserSettings } from "./userSettings.js";
-import { initSnowFall } from "./index.js";
+import { initSnowfall, snowfallState } from "./index.js";
 
 export function switchesAppendToDOM() {
   const switchContainers = [
@@ -12,10 +12,12 @@ export function switchesAppendToDOM() {
         container.appendChild(switchElement)
       );
       container.classList.add("snow-animation-switch--show");
+      const lastChild = container.lastElementChild;
+      lastChild.style.marginRight = "0";
     });
     injectCSS();
     console.log(
-      `{${switchContainers.length} switch container elements found and ${switchContainers.length} switch toggles appended to the DOM`
+      `${switchContainers.length} switch container elements found and ${switchContainers.length} switch toggles appended to the DOM`
     );
   } else {
     console.warn("No switchContainers found in the DOM");
@@ -61,33 +63,33 @@ export function switchesToggleOn() {
   });
 }
 
-export function switchesSetupEventHandlers(isAnimationRunning, snowfall) {
+export function switchesSetupEventHandlers() {
   const labelElems = [
     ...document.querySelectorAll(".snow-animation-switch__label"),
   ];
   labelElems.forEach((label) => {
     label.addEventListener("click", (event) => {
-      if (isAnimationRunning) {
-        snowfall.destroy();
-        isAnimationRunning = false;
+      if (snowfallState.isAnimationRunning) {
+        snowfallState.snowfallInstance.destroy();
+        snowfallState.isAnimationRunning = false;
         setUserSettings({ runSnowfallAnimation: false });
-        syncStateOtherSwitches(event, isAnimationRunning);
+        syncStateOtherSwitches(event);
       } else {
-        snowfall = initSnowFall();
-        isAnimationRunning = true;
+        snowfallState.snowfallInstance = initSnowfall();
+        snowfallState.isAnimationRunning = true;
         setUserSettings({ runSnowfallAnimation: true });
-        syncStateOtherSwitches(event, isAnimationRunning);
+        syncStateOtherSwitches(event);
       }
     });
   });
 }
 
-function syncStateOtherSwitches(event, isAnimationRunning) {
+function syncStateOtherSwitches(event) {
   [...document.querySelectorAll(".snow-animation-switch__input")].forEach(
     (elem) => {
       if (elem.id !== event.target.previousElementSibling.id) {
-        elem.checked = isAnimationRunning;
-        elem.ariaChecked = isAnimationRunning;
+        elem.checked = snowfallState.isAnimationRunning;
+        elem.ariaChecked = snowfallState.isAnimationRunning;
       }
     }
   );
