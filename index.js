@@ -6,7 +6,7 @@ import {
   switchesSetupEventHandlers,
   switchesToggleOn,
 } from "./switch.js";
-import { getDefaultParams } from "./getSnowfallParams.js";
+import { setParams } from "./params.js";
 /* 
   - The selector querySelectorAll is static. That's why in the eventListener block, the checkboxes are selected again. The click event has changed the state of the DOM. 
   - Checkboxes have different id's
@@ -18,22 +18,21 @@ export const snowfallState = {
   isAnimationRunning: false,
 };
 
-export function animationStart() {
-  const canRun = canRunAnimation();
-  if (canRun) {
-    const params = getDefaultParams();
-    const userPreference = checkUserSettings();
+export function animationStart(configParams = {}) {
+  const params = setParams(configParams);
+  const canRun = canRunAnimation(configParams);
 
+  if (canRun) {
+    const userPreference = checkUserSettings();
     switchesAppendToDOM();
+    switchesSetupEventHandlers();
 
     if (userPreference) {
       snowfallState.snowfallInstance = initSnowfall(params.snowfall);
       snowfallState.isAnimationRunning = true;
       switchesToggleOn();
     }
-
-    switchesSetupEventHandlers();
-  }
+  } else return;
 }
 
 export function initSnowfall(params) {

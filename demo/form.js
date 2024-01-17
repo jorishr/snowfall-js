@@ -1,5 +1,5 @@
 import { initSnowfall, snowfallState } from "../index.js";
-import { getDefaultParams } from "../getSnowfallParams.js";
+import { getDefaultParams } from "../params.js";
 import { switchesToggleOn } from "../switch.js";
 
 export function handleForm() {
