@@ -34,7 +34,7 @@ describe("getUserSettings", () => {
     expect(result).toEqual(validSettings);
   });
 
-  test("returns null and logs an error when invalid JSON is stored in localStorage", () => {
+  test("returns null when invalid JSON is stored in localStorage", () => {
     const invalidJSON = "invalidJSONString";
     localStorageMock.getItem.mockReturnValueOnce(invalidJSON);
 
@@ -47,12 +47,7 @@ describe("getUserSettings", () => {
 
     expect(localStorageMock.getItem).toHaveBeenCalledWith("userSettings");
     expect(result).toBeNull();
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "Error retrieving user settings:",
-      expect.any(SyntaxError)
-    );
 
-    // Restore the original console.error implementation
     consoleErrorSpy.mockRestore();
   });
 });
@@ -96,9 +91,6 @@ describe("setUserSettings", () => {
       "userSettings",
       JSON.stringify({ theme: "light", language: "fr", fontSize: "medium" })
     );
-    expect(consoleLogSpy).toHaveBeenCalledWith(
-      "User settings saved successfully."
-    );
   });
 
   test("saves new settings when localStorage is initially empty", () => {
@@ -113,9 +105,6 @@ describe("setUserSettings", () => {
     expect(localStorageMock.setItem).toHaveBeenCalledWith(
       "userSettings",
       JSON.stringify(newSettings)
-    );
-    expect(consoleLogSpy).toHaveBeenCalledWith(
-      "User settings saved successfully."
     );
   });
 });

@@ -7,7 +7,7 @@ export function canRunAnimation(configParams) {
   if (configParams.checkHardware) {
     hardwareCheck = checkHardware();
   } else hardwareCheck = true;
-  if (configParams.insideDateRange) {
+  if (configParams.checkDateRange) {
     insideDateRange = checkDateRange(configParams.dateRange);
   } else insideDateRange = true;
 

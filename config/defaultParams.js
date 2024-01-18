@@ -3,6 +3,7 @@ export function getDefaultParams() {
 }
 
 const defaultParams = {
+  logLevel: "default", // default or info
   checkHardware: true,
   checkDateRange: true,
   dateRange: {

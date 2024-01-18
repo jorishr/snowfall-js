@@ -1,8 +1,10 @@
 import { getDefaultParams } from "./defaultParams.js";
+import { logInfo, logWarn } from "../logger.js";
 
 export function setParams(configParams) {
   const defaultParams = getDefaultParams();
   const params = deepMergeWithValidation(defaultParams, configParams);
+  logInfo("Done setting parameters.");
   return params;
 }
 
@@ -13,7 +15,7 @@ export function deepMergeWithValidation(defaultConfig, configParams) {
     if (configParams.hasOwnProperty(key)) {
       // Validate if the key exists in the defaultConfig
       if (!(key in defaultConfig)) {
-        console.warn(
+        logWarn(
           `Warning: '${key}' does not exist in the default configuration. Using default value.`
         );
         continue;
@@ -24,9 +26,7 @@ export function deepMergeWithValidation(defaultConfig, configParams) {
 
       // Validate if the types match
       if (typeof configValue !== typeof defaultValue) {
-        console.warn(
-          `Warning: Type mismatch for '${key}'. Using default value.`
-        );
+        logWarn(`Warning: Type mismatch for '${key}'. Using default value.`);
         continue;
       }
 

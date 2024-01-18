@@ -24,6 +24,7 @@ describe("setParams", () => {
       },
     };
     const expectedResult = {
+      logLevel: "default",
       checkHardware: false,
       checkDateRange: false,
       dateRange: {
@@ -120,6 +121,7 @@ describe("validateConfigParams", () => {
       },
     };
     const expected = {
+      logLevel: "default",
       checkHardware: true,
       checkDateRange: true,
       dateRange: {

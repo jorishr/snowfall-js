@@ -12,9 +12,12 @@ export const snowfallState = {
   snowfallInstance: undefined,
   isAnimationRunning: false,
 };
+import { logInfo } from "./logger.js";
+
+export let params = {};
 
 export function animationStart(configParams = {}) {
-  const params = setParams(configParams);
+  params = setParams(configParams);
   const canRun = canRunAnimation(params);
 
   if (canRun) {
@@ -26,6 +29,7 @@ export function animationStart(configParams = {}) {
       snowfallState.snowfallInstance = initSnowfall(params.snowfall);
       snowfallState.isAnimationRunning = true;
       switchesToggleOn();
+      logInfo("Done loading and starting animation.");
     }
   } else return;
 }

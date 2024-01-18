@@ -1,3 +1,5 @@
+import { logInfo, logError } from "./logger.js";
+
 export function checkUserSettings() {
   if (getUserSettings().runSnowfallAnimation) {
     return true;
@@ -11,7 +13,7 @@ export function getUserSettings() {
     const settings = JSON.parse(settingsJSON) || {};
     return settings;
   } catch (error) {
-    console.error("Error retrieving user settings:", error);
+    logError(`Error retrieving user settings: ${error}`);
     return null;
   }
 }
@@ -26,9 +28,8 @@ export function setUserSettings(newSettings) {
     const mergedSettingsJSON = JSON.stringify(mergedSettings);
 
     localStorage.setItem("userSettings", mergedSettingsJSON);
-
-    console.log("User settings saved successfully.");
+    logInfo("User settings saved successfully.");
   } catch (error) {
-    console.error("Error saving user settings:", error);
+    logError(`Error saving user settings: ${error}`);
   }
 }

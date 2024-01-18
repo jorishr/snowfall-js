@@ -1,15 +1,20 @@
 import { checkUserSettings } from "./userSettings.js";
+import { logInfo } from "./logger.js";
 
 export function getAutoStart(configParams) {
-  const autoStartConfig = getAutoStartConfig(configParams);
+  const autostartConfig = getAutostartConfig(configParams);
   const userPreference = checkUserSettings(); // true, false or undefined
+
+  logInfo(`Autostart Config Value: ${autostartConfig}`);
+  logInfo(`User Preference: ${userPreference}`);
+
   // user preferences takes precedence over autoStartConfig
   if (userPreference) {
     return userPreference;
-  } else return autoStartConfig;
+  } else return autostartConfig;
 }
 
-function getAutoStartConfig(configParams) {
+function getAutostartConfig(configParams) {
   if (configParams.autostartOnMobile && configParams.autostartOnDesktop) {
     return true;
   } else {

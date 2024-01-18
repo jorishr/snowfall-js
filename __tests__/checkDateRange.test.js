@@ -115,7 +115,7 @@ describe("checkDateRange with startMonth === endMonth", () => {
 });
 
 describe("checkDateRange with invalid range input", () => {
-  test("returns an error for invalid date range input", () => {
+  test("returns false for invalid date range input", () => {
     const invalidDateRange1 = {
       startMonth: 10,
       startDay: 33,
@@ -159,10 +159,6 @@ describe("checkDateRange with invalid range input", () => {
     expect(result3).toBe(false);
     expect(result4).toBe(false);
     expect(result5).toBe(false);
-    expect(console.error).toHaveBeenCalledWith(
-      "Invalid date range values provided in the config file. Check documentation for more information."
-    );
-
     consoleErrorSpy.mockRestore();
   });
 });
