@@ -1,4 +1,5 @@
-import { isValidDate } from "./helper";
+import { isValidDate } from "./helper.js";
+
 export function checkDateRange(dateRange = {}) {
   let result = false;
   let validDateRange = true;

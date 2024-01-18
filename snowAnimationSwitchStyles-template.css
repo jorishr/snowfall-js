@@ -13,6 +13,7 @@
   --snow-animation-switch-toggleClr: #fff;
   --snow-animation-switch-txtClr: rgba(33, 37, 41, 1);
   --snow-animation-switch-txtPosition: 2;
+  --snow-animation-switch-txtMargin: 0 0 0 0.75em;
 }
 
 .snow-animation-switch {
@@ -72,5 +73,5 @@
   line-height: 1.25;
   order: var(--snow-animation-switch-txtPosition);
   color: var(--snow-animation-switch-txtClr);
-  margin-left: 0.75em;
+  margin: var(--snow-animation-switch-txtMargin);
 }

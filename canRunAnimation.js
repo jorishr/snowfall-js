@@ -3,13 +3,13 @@ import { checkHardware } from "./checkHardware.js";
 
 export function canRunAnimation(configParams) {
   let hardwareCheck;
-  let inSideDateRange;
+  let insideDateRange;
   if (configParams.checkHardware) {
     hardwareCheck = checkHardware();
   } else hardwareCheck = true;
-  if (configParams.inSideDateRange) {
-    inSideDateRange = checkDateRange(configParams.dateRange);
-  } else inSideDateRange = true;
+  if (configParams.insideDateRange) {
+    insideDateRange = checkDateRange(configParams.dateRange);
+  } else insideDateRange = true;
 
-  return hardwareCheck && inSideDateRange;
+  return hardwareCheck && insideDateRange;
 }

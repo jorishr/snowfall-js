@@ -1,5 +1,5 @@
 import { initSnowfall, snowfallState } from "../index.js";
-import { getDefaultParams } from "../params.js";
+import { getDefaultParams } from "../config/defaultParams.js";
 import { switchesToggleOn } from "../switch.js";
 
 export function handleForm() {
@@ -134,7 +134,7 @@ function handleSwitchParameterChange(newParams) {
 }
 
 function stylesReset() {
-  const styles = getDefaultParams().switches.stylesheetRoot;
+  const styles = getDefaultParams().switches.styles;
   const switches = document.querySelectorAll(".snow-animation-switch");
   Object.keys(styles).forEach((style) =>
     document.documentElement.style.setProperty(

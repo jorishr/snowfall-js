@@ -2,15 +2,7 @@ export function checkUserSettings() {
   if (getUserSettings().runSnowfallAnimation) {
     return true;
   } else if (getUserSettings().runSnowfallAnimation === false) return false;
-  else {
-    /* 
-        When no settings are found, the default setting should be to run the animation, but only big screens. This is a proxy condition for decent hardware. The user will see the toggles and can choose to run the animation manually.
-      */
-    if (window.innerWidth >= 768) {
-      return true;
-    }
-    return false;
-  }
+  else return undefined;
 }
 
 export function getUserSettings() {

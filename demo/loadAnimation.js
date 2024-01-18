@@ -12,7 +12,7 @@ function loadAnimation() {
     },
     switches: {
       show: false,
-      stylesheetRoot: {
+      styles: {
         bgClrOff: "#000000",
         txtPosition: "1",
       },
