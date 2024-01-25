@@ -16,7 +16,7 @@ import { logInfo } from "./logger.js";
 
 export let params = {};
 
-export function animationStart(configParams = {}) {
+export function snowAnimationStart(configParams = {}) {
   params = setParams(configParams);
   const canRun = canRunAnimation(params);
 

@@ -17,7 +17,7 @@ To use the Snowfall-js-plugin, you need to install the NPM package:
 npm install snowfall-js-plugin
 ```
 
-**Note**: If you only want the snowfall.js file without the bells and whistles, download the file snowfall.js from the original [snowfall.js repo](https://github.com/Andrey-1988-dev/snowfall-js) and include it in your HTML page manually.
+**Note**: If you only want the snowfall.js file without the bells and whistles that this plugin package provides, download the file snowfall.js from the original [snowfall.js repo](https://github.com/Andrey-1988-dev/snowfall-js) and include it in your project manually.
 
 ### How to add the plugin to your website project
 
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 ```
 
-This will run the plugin with the default configuration. See [Configuration Options](#configuration-options) section for more information.
+This will run the plugin with the default configuration. See [Configuration Options](#configuration-options) for more information.
 
 ## Demo
 
@@ -146,12 +146,12 @@ The switches are responsive to font-size so you can make then bigger or smaller 
 By default this plugin will append a minified CSS file to the DOM (`snowAnimationSwitchStyles.css`). If you don't want this behavior, you should add these styles (or your own) manually to your project's (S)CSS and set the option `injectCSS: false` in the custom configuration object.
 
 ```css
-/* The toggle has various components: 
-   - The guiding text next to it either left or right of the toggle with flexbox. 
-   - The checkbox element itself is made invisible, only use the form functionality.
-   - The label element is what is visible to the user.
-   - The toggle is able to scale with the font-size of the guiding text.
-   - You may have to adjust the line-height to get the desired alignment
+/* The switch has various components: 
+   - The label text next to the switch can appear either left-side or right-side using flexbox order property. 
+   - The checkbox element itself is made invisible and only used for its functionality.
+   - The label element is the element that is actually visible to the user.
+   - The switch is able to scale with the font-size.
+   - You may have to adjust the line-height to get the desired vertical alignment
    - Based on https://codepen.io/jorishr/pen/xxxPPLP
 */
 
@@ -247,6 +247,10 @@ By default, the user's preference to enable or disable the animation is stored i
 }
 ```
 
+## Log level
+
+The default log level will only log errors to the browser console. During development you can set `logLevel: "info"` to get more informative messages and warnings in the browser console.
+
 ### How to use a custom configuration object
 
 You can pass a customized configuration object to the `snowfallAnimationStart()` function. For example:
@@ -279,5 +283,5 @@ This project is distributed under the GNU GPL v3.0 license. You can freely use, 
 ## Authors
 
 - The NPM package was created by [Joris Raymaekers](https://liondigits.com "Lion Digits").
-- The custom toggle switches are based on [Codepen: animated toggle switch](https://codepen.io/jorishr/pen/xxxPPLP "Codepen Joris Raymaekers").
-- The original snowfall animation was first created and published by [Andrey Yurkevich](https://github.com/Andrey-1988-dev "Andrey Yurkevich").
+- The custom toggle switches are based on: [Codepen: animated toggle switch](https://codepen.io/jorishr/pen/xxxPPLP "Codepen Joris Raymaekers").
+- The original snowfall animation code itself was first created and published by [Andrey Yurkevich](https://github.com/Andrey-1988-dev "Andrey Yurkevich").

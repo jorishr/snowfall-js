@@ -4,13 +4,9 @@
   "version": "0.0.1",
   "main": "index.js",
   "type": "module",
-  "bin": {
-    "snowfall-animation-demo": "http-server ./demo"
-  },
   "scripts": {
     "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest",
-    "demo": "npx http-server",
-    "demo1": "npx http-server ./node_modules/my-package/demo"
+    "demo": "npx http-server ./node_modules/snowfall-js-plugin/demo"
   },
   "repository": {
     "type": "git",
@@ -23,7 +19,7 @@
     "snowfall-animation",
     "snowfall-animation-plugin"
   ],
-  "author": "Joris Raymaekers",
+  "author": "Joris Raymaekers (https://liondigits.com)",
   "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/jorishr/snowfall-js-plugin/issues"
