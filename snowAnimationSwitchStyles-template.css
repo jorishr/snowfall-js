@@ -1,0 +1,77 @@
+/* The toggle has various components: 
+   - The guiding text next to it either left or right of the toggle with flexbox. 
+   - The checkbox element itself is made invisible, only use the form functionality.
+   - The label element is what is visible to the user.
+   - The toggle is able to scale with the font-size of the guiding text.
+   - You may have to adjust the line-height to get the desired alignment
+   - Based on https://codepen.io/jorishr/pen/xxxPPLP
+*/
+
+:root {
+  --snow-animation-switch-bgClrOff: rgba(189, 195, 199, 1);
+  --snow-animation-switch-bgClrOn: rgba(149, 165, 166, 1);
+  --snow-animation-switch-toggleClr: #fff;
+  --snow-animation-switch-txtClr: rgba(33, 37, 41, 1);
+  --snow-animation-switch-txtPosition: 2;
+  --snow-animation-switch-txtMargin: 0 0 0 0.75em;
+}
+
+.snow-animation-switch {
+  display: none;
+}
+
+.snow-animation-switch--show {
+  display: flex;
+  justify-content: center;
+}
+
+.snow-animation-switch__input {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.snow-animation-switch__label {
+  position: relative;
+  display: block;
+  text-indent: -9999px;
+  cursor: pointer;
+  width: 2.5em; /* 40px */
+  height: 1.25em; /* 20px */
+  background: var(--snow-animation-switch-bgClrOff);
+  border-radius: 1.25em; /* 20px, equal to height */
+  order: 2;
+}
+
+.snow-animation-switch__label::after {
+  content: "";
+  position: absolute;
+  top: 0.125em; /* 2px */
+  left: 0.125em; /* 2px */
+  width: 1em; /* 16px */
+  height: 1em; /* 16px */
+  background: var(--snow-animation-switch-toggleClr);
+  border-radius: 1em; /* 16px */
+  transition: 0.3s;
+}
+
+/* extend the toggle when active */
+.snow-animation-switch__label:active::after {
+  width: 1.375em; /* 22px */
+}
+
+.snow-animation-switch__input:checked + label {
+  background: var(--snow-animation-switch-bgClrOn);
+}
+
+.snow-animation-switch__input:checked + label::after {
+  left: calc(100% - 0.125em); /* 100% - 2px */
+  transform: translateX(-100%);
+}
+
+.snow-animation-switch__text {
+  line-height: 1.25;
+  order: var(--snow-animation-switch-txtPosition);
+  color: var(--snow-animation-switch-txtClr);
+  margin: var(--snow-animation-switch-txtMargin);
+}
