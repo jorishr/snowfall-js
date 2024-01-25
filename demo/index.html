@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>Snowfall demo</title>
+    <meta
+      name="description"
+      content="This page is a demo of Snowfall.js, a JavaScript script that creates a realistic and customizable snowfall effect on your website. You can adjust various parameters of the snowfall, such as the number, size, speed, color and text of the snowflakes. You can also see the source code and documentation of the script on GitHub."
+    />
+    <link
+      crossorigin="anonymous"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-light">
+    <div class="container mt-3 mb-3">
+      <div class="row">
+        <div class="col">
+          <div class="heading d-flex">
+            <h1 class="me-3">Snowfall demo</h1>
+            <div class="snow-animation-switch mt-3"></div>
+          </div>
+          <p>
+            With this demo page, you can tryout the customization options of
+            various parameters of the snowfall animation: the number, size,
+            speed, color and text of the snowflakes, the background-color and
+            the color and behavior of the toggle switches. You can enter the
+            desired values in the form below and click the "Accept" button to
+            apply the changes. You can also click the "Default" button to return
+            to the initial settings. You will see how your snowfall will be
+            animated on the background of your page. This is a fun and
+            interesting way to decorate your website.
+          </p>
+          <p>
+            You can also tryout the optional custom switch functionality. Adjust
+            the background-color when checked or unchecked or change the color
+            of the switch. This custom checkbox is fully accessible with Aria
+            checked label and keyboard functionality.
+          </p>
+          <p>
+            If you install the NPM package
+            <a href="https://github.com/jorishr/snowfall-js"
+              >snowfall-js-plugin</a
+            >
+            you can easily integrate this into your website by adding a
+            container element:
+            <code>&lt;div class="snow-animation-switch"&gt;&lt;/div&gt;</code>.
+            If you add multiple containers, the switches will be synchronized
+            automatically, as they are on this page.
+          </p>
+          <p>
+            The snowfall animation script itself was created using JavaScript
+            and HTML5 canvas. You can find the source code and detailed
+            documentation at
+            <a href="https://github.com/Andrey-1988-dev/snowfall-js"
+              >snowfall-js</a
+            >. The source code of the extended NPM package can be found at
+            <a href="https://github.com/jorishr/snowfall-js-plugin"
+              >snowfall-js-plugin</a
+            >. You can freely use, modify and distribute the code under the
+            GPL-3.0 license. If you liked this code, you can support the
+            author(s) by leaving a star or a comment on GitHub.
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <h2>Snow settings</h2>
+        <div class="col">
+          <form class="row g-3" id="form">
+            <div class="col-md-6">
+              <label class="form-label" for="count"
+                >Number of snowflakes (count)</label
+              >
+              <input
+                class="form-control snowParam"
+                id="count"
+                name="count"
+                type="number"
+                value="100"
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="text"
+                >Text for a snowflake (can be any symbol or text) (text)</label
+              >
+              <input
+                class="form-control snowParam"
+                id="text"
+                name="text"
+                type="text"
+                value="❄"
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="color"
+                >Change background color of this page</label
+              >
+              <input
+                class="form-control pageParam"
+                id="color"
+                name="color"
+                style="height: 2.5em; width: 4em"
+                type="color"
+                value="#f8f9fa"
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="color"
+                >Color of a snowflake in HEX format (color)</label
+              >
+              <input
+                class="form-control snowParam"
+                id="color"
+                name="color"
+                style="height: 2.5em; width: 4em"
+                type="color"
+                value="#99ccff"
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="zIndex"
+                >Z-index for the snowflakes canvas (zIndex)</label
+              >
+              <input
+                class="form-control snowParam"
+                id="zIndex"
+                name="zIndex"
+                type="number"
+                value="1000"
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="minRadius"
+                >Minimum radius of a snowflake in pixels (minRadius)</label
+              >
+              <input
+                class="form-control snowParam"
+                id="minRadius"
+                name="minRadius"
+                type="number"
+                value="10"
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="maxRadius"
+                >Maximum radius of a snowflake in pixels (maxRadius)</label
+              >
+              <input
+                class="form-control snowParam"
+                id="maxRadius"
+                name="maxRadius"
+                type="number"
+                value="30"
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="minSpeed"
+                >Minimum speed of a snowflake in pixels per frame
+                (minSpeed)</label
+              >
+              <input
+                class="form-control snowParam"
+                id="minSpeed"
+                name="minSpeed"
+                type="number"
+                value="3"
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="maxSpeed"
+                >Maximum speed of a snowflake in pixels per frame
+                (maxSpeed)</label
+              >
+              <input
+                class="form-control snowParam"
+                id="maxSpeed"
+                name="maxSpeed"
+                type="number"
+                value="10"
+              />
+            </div>
+            <div class="row g-3 mb-3">
+              <h2>Switch toggle settings</h2>
+              <div class="col-md-6">
+                <label class="form-label" for="bgClrOn"
+                  >Switch background color: toggle ON</label
+                >
+                <input
+                  class="form-control switchParam"
+                  id="bgClrOn"
+                  name="bgClrOn"
+                  type="color"
+                  value="#95a5a6"
+                  style="height: 2.5em; width: 4em"
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="bgClrOff"
+                  >Switch background color: toggle OFF</label
+                >
+                <input
+                  class="form-control switchParam"
+                  id="bgClrOff"
+                  name="bgClrOff"
+                  type="color"
+                  value="#bdc3c7"
+                  style="height: 2.5em; width: 4em"
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="txtClr">Switch text color</label>
+                <input
+                  class="form-control switchParam"
+                  id="txtClr"
+                  name="txtClr"
+                  type="color"
+                  value="#212529"
+                  style="height: 2.5em; width: 4em"
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="toggleClr"
+                  >Switch toggle color</label
+                >
+                <input
+                  class="form-control switchParam"
+                  id="toggleClr"
+                  name="toggleClr"
+                  type="color"
+                  value="#ffffff"
+                  style="height: 2.5em; width: 4em"
+                />
+              </div>
+              <div class="col-md-6">
+                <label for="txtPosition"
+                  >Switch text position (1 = left, 2 = right, default)</label
+                >
+                <input
+                  type="number"
+                  name="txtPosition"
+                  id="txtPosition"
+                  min="1"
+                  max="2"
+                  value="2"
+                  class="switchParam"
+                />
+              </div>
+              <div class="col-md-6">
+                <label for="txtContent">Switch text content</label>
+                <input
+                  type="text"
+                  name="txtContent"
+                  id="txtContent"
+                  value="Snow on/off"
+                  class="switchParam"
+                />
+              </div>
+              <div class="col-md-6">
+                <fieldset>
+                  <legend class="fs-6">Show/Hide switches</legend>
+                  <div class="form-check form-check-inline">
+                    <input
+                      type="radio"
+                      name="hideSwitches"
+                      id="hideSwitchesFalse"
+                      checked
+                      value=""
+                      class="form-check-input switchParam"
+                    />
+                    <label class="form-check-label" for="hideSwitchesFalse"
+                      >Show</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      type="radio"
+                      name="hideSwitches"
+                      id="hideSwitchesTrue"
+                      value="true"
+                      class="form-check-input switchParam"
+                    />
+                    <label for="hideSwitchesTrue" class="form-check-label"
+                      >Hide</label
+                    >
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+            <div class="col-12 d-flex">
+              <button class="btn btn-primary me-2" type="submit">Accept</button>
+              <button class="btn btn-secondary me-4" id="default" type="button">
+                Default
+              </button>
+              <div class="snow-animation-switch mt-2"></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script
+      crossorigin="anonymous"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    ></script>
+    <script type="module" src="loadAnimation.js"></script>
+  </body>
+</html>
