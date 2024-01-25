@@ -24,10 +24,10 @@ npm install snowfall-js-plugin
 After you've installed the plugin package, import the plugin into your project's app.js or vendor.js file.
 
 ```js
-import snowfallAnimationStart from "snowfall-animation-plugin";
+import { snowAnimationStart } from "snowfall-animation-plugin";
 
 document.addEventListener("DOMContentLoaded", function () {
-  snowfallAnimationStart();
+  snowAnimationStart();
 });
 ```
 
@@ -38,10 +38,12 @@ This will run the plugin with the default configuration. See [Configuration Opti
 The package comes with a static demo page whereby you can experiment with the various configuration options for the snowfall animation and the custom on/off toggles. After you've installed the package run this command:
 
 ```bash
-npx snowfall-animation-plugin demo
+npx snowfall-js-plugin demo
 ```
 
-This will spin up a http-server on localhost port 8080 and serve the demo page. Once you've found your preferred configuration options, proceed to defining a custom configuration object.
+This will spin up a http-server on localhost port 8080 and serve the demo page. _Note:_ you may be prompted to install http-server as a dev dependency. Once installed, click on the output link in the terminal to open the demo in your browser (localhost:8080/demo). If you see a directory list, click on the demo folder.
+
+Once you've found your preferred configuration options, proceed to defining a custom configuration object.
 
 ## Configuration options
 
