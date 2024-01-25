@@ -13,7 +13,9 @@ export function switchesAppendToDOM(params) {
       container.classList.add("snow-animation-switch--show");
     });
 
-    injectCSS(params);
+    if (params.switches.injectCSS) {
+      injectCSS(params);
+    }
 
     logInfo(
       `${switchContainers.length} switch container elements found and ${switchContainers.length} switch toggles appended to the DOM.`
@@ -63,7 +65,7 @@ function injectCSS(params) {
 
   linkElement.rel = "stylesheet";
   linkElement.type = "text/css";
-  linkElement.href = "../snowAnimationSwitchStyles.css";
+  linkElement.href = new URL("snowAnimationSwitchStyles.css", import.meta.url);
 
   document.head.appendChild(linkElement);
 }

@@ -19,28 +19,51 @@ npm install snowfall-js-plugin
 
 **Note**: If you only want the snowfall.js file without the bells and whistles, download the file snowfall.js from the original [snowfall.js repo](https://github.com/Andrey-1988-dev/snowfall-js) and include it in your HTML page manually.
 
-## Configuration options
+### How to add the plugin to your website project
 
-### How to use a custom configuration
+After you've installed the plugin package, import the plugin into your project's app.js or vendor.js file.
+
+```js
+import snowfallAnimationStart from "snowfall-animation-plugin";
+
+document.addEventListener("DOMContentLoaded", function () {
+  snowfallAnimationStart();
+});
+```
+
+This will run the plugin with the default configuration. See [Configuration Options](#configuration-options) section for more information.
+
+## Demo
+
+The package comes with a static demo page whereby you can experiment with the various configuration options for the snowfall animation and the custom on/off toggles. After you've installed the package run this command:
+
+```bash
+npx snowfall-animation-plugin demo
+```
+
+This will spin up a http-server on localhost port 8080 and serve the demo page. Once you've found your preferred configuration options, proceed to defining a custom configuration object.
+
+## Configuration options
 
 ### Default configuration
 
-Below you find the default configuration object. Most of the settings are self-explanatory but continue reading below for more information.
+Below you find the default configuration object. Most of the settings are self-explanatory but continue reading below for a more detailed information.
 
 ```js
-{
+const defaultParams = {
+  logLevel: "default", // default or info
   checkHardware: true,
   checkDateRange: true,
   dateRange: {
     startMonth: 12, // 1-12
     endMonth: 2, // 1-12
-    startDay: 15, // 1 - days in the month
-    endDay: 15, // 1- days in the month
+    startDay: 15, // 1-31
+    endDay: 15, // 1-31
   },
   autostartOnMobile: true,
   autostartOnDesktop: true,
   snowfall: {
-    count: 100, // number of snowflakes on the canvas
+    count: 100, // number of snowflakes
     minRadius: 10, // min size of snowflakes
     maxRadius: 30, // max size of snowflakes
     minSpeed: 3, // min fall speed of snowflakes
@@ -52,6 +75,8 @@ Below you find the default configuration object. Most of the settings are self-e
   switches: {
     show: true,
     storeUserSettings: true,
+    txt: "Snow on/off",
+    injectCSS: true,
     styles: {
       /* background color of the switch when turned off */
       bgClrOff: "rgba(189, 195, 199, 1)", // #bdc3c7
@@ -64,7 +89,7 @@ Below you find the default configuration object. Most of the settings are self-e
       txtPosition: "2", // 1 = left of switch or 2 = right of switch
     },
   },
-}
+};
 ```
 
 ### Hardware check
@@ -98,13 +123,107 @@ If you want the code to be loaded all year set `checkDateRange: false`.
 
 ### Autostart
 
-By default, the animation will start automatically. That is, if it passes the hardware check and the current date falls within the specified date range. You can also leave the decision to run the animation up to the user. If you choose to do so, make sure you have one or more switches available on your site (see [switches](#switches)). The user then needs to manually turn the animation on.
+By default, the animation will start automatically. That is, if it passes the hardware check and the current date falls within the specified date range.
 
-The configuration offers two settings: autoStartOnMobile and autoStartOnDesktop. Both are set to `true` by default. This setting is based on the `window.innerWidth >= 768px` condition.
+You can also leave the decision to run the animation up to the user. If you choose to do so, make sure you have one or more switches available on your site (see [switches](#switches)). The user then needs to manually turn the animation on.
+
+The configuration offers two settings: autoStartOnMobile and autoStartOnDesktop. Both are set to `true` by default. This setting is based on the `window.innerWidth >= 768px` condition. There should be no performance issues on mid-range to high-end mobile devices nor on desktop.
+
+However, if your website already contains lots of scroll animations or other JavaScript code that requires lots of calculations, you may want to consider disabling autoStart for mobile devices. The hardware check mentioned above will already filter out low-end devices but hardware checks via the browser are not always reliable. This provides you with an extra option.
 
 ### Switches
 
-By default the plugin will look for container elements with `class="snow-animation-switch" and append the custom switch elements as children to the container. If no container elements are found, a warning will be shown in the console.
+By default the plugin will look for container elements with `class="snow-animation-switch"` and append the custom switch elements as children to the container. If no container elements are found, a warning will be shown in the console (only on `logLevel = "info"`).
+
+If you want to use the switch functionality simply add one or more container `<div class="snow-animation-switch"></div` elements to your HTML page, for example, one in your header menu or navigation bar and one in your footer area. The behavior of these switches is synchronized, thus if you toggle the animation on/off on one switch, the state of the other switches will be updated automatically. You can add as many switches as you like.
+
+The label text that accompanies the switch can be set in the configuration options object, as well as its position: left-side or right-side of the switch.
+
+You can also configure the styles (colors) that will be applied to the different element components of each switch.
+
+The switches are responsive to font-size so you can make then bigger or smaller by playing around with font-size on the parent element.
+
+By default this plugin will append a minified CSS file to the DOM (`snowAnimationSwitchStyles.css`). If you don't want this behavior, you should add these styles (or your own) manually to your project's (S)CSS and set the option `injectCSS: false` in the custom configuration object.
+
+```css
+/* The toggle has various components: 
+   - The guiding text next to it either left or right of the toggle with flexbox. 
+   - The checkbox element itself is made invisible, only use the form functionality.
+   - The label element is what is visible to the user.
+   - The toggle is able to scale with the font-size of the guiding text.
+   - You may have to adjust the line-height to get the desired alignment
+   - Based on https://codepen.io/jorishr/pen/xxxPPLP
+*/
+
+:root {
+  --snow-animation-switch-bgClrOff: rgba(189, 195, 199, 1);
+  --snow-animation-switch-bgClrOn: rgba(149, 165, 166, 1);
+  --snow-animation-switch-toggleClr: #fff;
+  --snow-animation-switch-txtClr: rgba(33, 37, 41, 1);
+  --snow-animation-switch-txtPosition: 2;
+  --snow-animation-switch-txtMargin: 0 0 0 0.75em;
+}
+
+.snow-animation-switch {
+  display: none;
+}
+
+.snow-animation-switch--show {
+  display: flex;
+  justify-content: center;
+}
+
+.snow-animation-switch__input {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.snow-animation-switch__label {
+  position: relative;
+  display: block;
+  text-indent: -9999px;
+  cursor: pointer;
+  width: 2.5em; /* 40px */
+  height: 1.25em; /* 20px */
+  background: var(--snow-animation-switch-bgClrOff);
+  border-radius: 1.25em; /* 20px, equal to height */
+  order: 2;
+}
+
+.snow-animation-switch__label::after {
+  content: "";
+  position: absolute;
+  top: 0.125em; /* 2px */
+  left: 0.125em; /* 2px */
+  width: 1em; /* 16px */
+  height: 1em; /* 16px */
+  background: var(--snow-animation-switch-toggleClr);
+  border-radius: 1em; /* 16px */
+  transition: 0.3s;
+}
+
+/* extend the toggle when active */
+.snow-animation-switch__label:active::after {
+  width: 1.375em; /* 22px */
+}
+
+.snow-animation-switch__input:checked + label {
+  background: var(--snow-animation-switch-bgClrOn);
+}
+
+.snow-animation-switch__input:checked + label::after {
+  left: calc(100% - 0.125em); /* 100% - 2px */
+  transform: translateX(-100%);
+}
+
+.snow-animation-switch__text {
+  line-height: 1.25;
+  order: var(--snow-animation-switch-txtPosition);
+  color: var(--snow-animation-switch-txtClr);
+  margin: var(--snow-animation-switch-txtMargin);
+}
+```
 
 If you only want the snow animation without the ability for the users to turn the animation on or off, you can set the option:
 
@@ -127,6 +246,31 @@ By default, the user's preference to enable or disable the animation is stored i
   }
 }
 ```
+
+### How to use a custom configuration object
+
+You can pass a customized configuration object to the `snowfallAnimationStart()` function. For example:
+
+```js
+const customConfig = {
+  logLevel: "info", // default or info
+  checkHardware: false,
+  snowfall: {
+    count: 33,
+    color: "#ffffff",
+  },
+  switches: {
+    storeUserSettings: false,
+    txt: "Snow",
+  },
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+  snowfallAnimationStart(customConfig);
+});
+```
+
+The parameters you pass via the object will be validated first and the values from the default configuration will be used as a fallback. Check for warnings or errors in your browser developer console. It is recommended to copy and paste the default configuration object and modify the settings according to your needs.
 
 ## License
 

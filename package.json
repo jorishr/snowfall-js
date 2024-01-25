@@ -4,9 +4,13 @@
   "version": "0.0.1",
   "main": "index.js",
   "type": "module",
+  "bin": {
+    "snowfall-animation-demo": "http-server ./demo"
+  },
   "scripts": {
     "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest",
-    "demo": "npx http-server -o --default-spa"
+    "demo": "npx http-server",
+    "demo1": "npx http-server ./node_modules/my-package/demo"
   },
   "repository": {
     "type": "git",

@@ -49,6 +49,7 @@ describe("setParams", () => {
         show: false,
         storeUserSettings: true,
         txt: "Snow on/off",
+        injectCSS: true,
         styles: {
           /* background color of the switch when turned off */
           bgClrOff: "rgba(189, 195, 199, 1)", // #bdc3c7
@@ -146,6 +147,7 @@ describe("validateConfigParams", () => {
         show: false,
         storeUserSettings: true,
         txt: "Snow on/off",
+        injectCSS: true,
         styles: {
           /* background color of the switch when turned off */
           bgClrOff: "rgba(189, 195, 199, 1)", // #bdc3c7
