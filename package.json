@@ -4,9 +4,12 @@
   "version": "0.0.1",
   "main": "index.js",
   "type": "module",
+  "bin": {
+    "snowfall-js-demo": "demo/bin/index.js"
+  },
   "scripts": {
     "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest",
-    "demo": "npx http-server ./node_modules/snowfall-js-plugin/demo"
+    "demo": "npx http-server ./ -d false -o /demo"
   },
   "repository": {
     "type": "git",
