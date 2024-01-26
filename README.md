@@ -64,6 +64,10 @@ const defaultParams = {
   },
   autostartOnMobile: true,
   autostartOnDesktop: true,
+  checkReducedMotionPreference: true,
+  setReducedMotion: "disable", // "disable" or "reduce"
+  reduceMultiplier: 0.5,
+  // experimental: reduces snowfall count by 50%, use a value between 0.1-0.9
   snowfall: {
     count: 100, // number of snowflakes
     minRadius: 10, // min size of snowflakes
@@ -132,6 +136,20 @@ You can also leave the decision to run the animation up to the user. If you choo
 The configuration offers two settings: autoStartOnMobile and autoStartOnDesktop. Both are set to `true` by default. This setting is based on the `window.innerWidth >= 768px` condition. There should be no performance issues on mid-range to high-end mobile devices nor on desktop.
 
 However, if your website already contains lots of scroll animations or other JavaScript code that requires lots of calculations, you may want to consider disabling autoStart for mobile devices. The hardware check mentioned above will already filter out low-end devices but hardware checks via the browser are not always reliable. This provides you with an extra option.
+
+### Accessibility
+
+The switches are keyboard focusable and can be turned on and off by pressing the `Enter` key. Some users can experience discomfort with lots of moving animations on a screen, see [MDN, Prefers Reduced Motion](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion). When this setting is detected the plugin offers two options for you to configure: disable the animation entirely or reduce the number of moving snowflakes by a percentage of your choice. The plugin will check the browser settings via the method `window.mediaMatch('prefers-reduced-motion')` and apply the setting of your choice (disable or reduce). The default option is to disable the animation.
+
+```js
+{
+  setReducedMotion: "reduce", // default = "disable"
+  reduceMultiplier: 0.5,
+  // experimental: reduces snowfall count by 50%, use a value between 0.1-0.9
+}
+```
+
+If accessibility is of no concern, you can turn this behavior off by setting the configuration object to: `checkReducedMotionPreference: false`.
 
 ### Switches
 
@@ -249,13 +267,13 @@ By default, the user's preference to enable or disable the animation is stored i
 }
 ```
 
-## Log level
+### Log level
 
 The default log level will only log errors to the browser console. During development you can set `logLevel: "info"` to get more informative messages and warnings in the browser console.
 
 ### How to use a custom configuration object
 
-You can pass a customized configuration object to the `snowfallAnimationStart()` function. For example:
+You can pass a customized configuration object to the `snowAnimationStart()` function. For example:
 
 ```js
 const customConfig = {
@@ -272,7 +290,7 @@ const customConfig = {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
-  snowfallAnimationStart(customConfig);
+  snowAnimationStart(customConfig);
 });
 ```
 
