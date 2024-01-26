@@ -35,6 +35,10 @@ describe("setParams", () => {
       },
       autostartOnMobile: true,
       autostartOnDesktop: true,
+      checkReducedMotionPreference: true,
+      setReducedMotion: "disable", // "disable" or "reduce"
+      reduceMultiplier: 0.5,
+      // experimental: reduces snowfall count by 50%, use value between 0.1-0.9
       snowfall: {
         count: 54, // number of snowflakes
         minRadius: 10, // min size of snowflakes
@@ -133,6 +137,10 @@ describe("validateConfigParams", () => {
       },
       autostartOnMobile: false,
       autostartOnDesktop: true,
+      checkReducedMotionPreference: true,
+      setReducedMotion: "disable", // "disable" or "reduce"
+      reduceMultiplier: 0.5,
+      // experimental: reduces snowfall count by 50%, use value between 0.1-0.9
       snowfall: {
         count: 150, // number of snowflakes
         minRadius: 10, // min size of snowflakes
