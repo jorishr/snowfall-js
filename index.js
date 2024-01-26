@@ -17,6 +17,9 @@ import { logInfo } from "./logger.js";
 export let params = {};
 
 export function snowAnimationStart(configParams = {}) {
+  if (configParams.logLevel === "info") params.logLevel = "info";
+  logInfo("Validating snowfall-js-plugin parameters...");
+
   params = setParams(configParams);
   const canRun = canRunAnimation(params);
 

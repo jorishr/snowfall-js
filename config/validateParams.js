@@ -1,10 +1,11 @@
 import { getDefaultParams } from "./defaultParams.js";
 import { logInfo, logWarn } from "../logger.js";
+import { validateReduceMultiplier } from "../prefersReducedMotion.js";
 
 export function setParams(configParams) {
   const defaultParams = getDefaultParams();
   const params = deepMergeWithValidation(defaultParams, configParams);
-  logInfo("Done setting parameters.");
+  logInfo("Done setting snowfall-js-plugin parameters.");
   return params;
 }
 
@@ -39,6 +40,20 @@ export function deepMergeWithValidation(defaultConfig, configParams) {
       }
     }
   }
-
+  if (
+    configParams !== null &&
+    configParams.checkReducedMotionPreference === true &&
+    configParams.hasOwnProperty("setReducedMotion") &&
+    configParams.setReducedMotion === "reduce"
+  ) {
+    const reduceMultiplier = validateReduceMultiplier(
+      mergedConfig,
+      configParams
+    );
+    mergedConfig.snowfall.count = Math.round(
+      mergedConfig.snowfall.count * reduceMultiplier
+    );
+    console.log(mergedConfig.snowfall.count);
+  }
   return mergedConfig;
 }

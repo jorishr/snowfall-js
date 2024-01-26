@@ -14,6 +14,10 @@ const defaultParams = {
   },
   autostartOnMobile: true,
   autostartOnDesktop: true,
+  checkReducedMotionPreference: true,
+  setReducedMotion: "disable", // "disable" or "reduce"
+  reduceMultiplier: 0.5,
+  // experimental: reduces snowfall count by 50%, use value between 0.1-0.9
   snowfall: {
     count: 100, // number of snowflakes
     minRadius: 10, // min size of snowflakes
