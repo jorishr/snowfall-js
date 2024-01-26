@@ -67,7 +67,7 @@ const defaultParams = {
   checkReducedMotionPreference: true,
   setReducedMotion: "disable", // "disable" or "reduce"
   reduceMultiplier: 0.5,
-  // experimental: reduces snowfall count by 50%, use value between 0.1-0.9
+  // experimental: reduces snowfall count by 50%, use a value between 0.1-0.9
   snowfall: {
     count: 100, // number of snowflakes
     minRadius: 10, // min size of snowflakes
@@ -139,13 +139,13 @@ However, if your website already contains lots of scroll animations or other Jav
 
 ### Accessibility
 
-The switches are keyboard focusable and can be turned on and off by pressing the `Enter`. Some users can experience discomfort with lots of moving animations on a screen, see [MDM, Prefers Reduced Motion](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion). When this setting is detected this plugin offers two options for you to configure: disable the animation or reduce the number of moving snowflakes by a percentage of your choice. The plugin will check the browser settings via the method `window.mediaMatch('prefers-reduced-motion')` and apply the setting of your choice (disable or reduce). The default option is to disable the animation.
+The switches are keyboard focusable and can be turned on and off by pressing the `Enter` key. Some users can experience discomfort with lots of moving animations on a screen, see [MDN, Prefers Reduced Motion](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion). When this setting is detected the plugin offers two options for you to configure: disable the animation entirely or reduce the number of moving snowflakes by a percentage of your choice. The plugin will check the browser settings via the method `window.mediaMatch('prefers-reduced-motion')` and apply the setting of your choice (disable or reduce). The default option is to disable the animation.
 
 ```js
 {
   setReducedMotion: "reduce", // default = "disable"
   reduceMultiplier: 0.5,
-  // experimental: reduces snowfall count by 50%, use value between 0.1-0.9
+  // experimental: reduces snowfall count by 50%, use a value between 0.1-0.9
 }
 ```
 
