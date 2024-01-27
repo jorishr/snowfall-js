@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.3] - 2024-01-27
+
+### Added
+
+- Adds the ability to add element attributes to the text label element of the toggle switches.
+
+### Changed
+
+- Bug fixe for issue TG-11. Resizing the window when the animation is stopped no longer generates errors.
+
 ## [0.0.2] - 2024-01-26
 
 ### Added
