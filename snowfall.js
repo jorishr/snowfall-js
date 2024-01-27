@@ -147,11 +147,10 @@ export class Snowfall {
     // Set the width and height of the canvas equal to the width and height of the browser window
     this.resizeCanvas();
     // Add an event handler to resize the canvas when the window size changes
-    window.addEventListener("resize", () => {
-      // Use requestAnimationFrame to optimize the resizing
+    window.addEventListener("resize", this.resizeHandler);
+    this.resizeHandler = () => {
       requestAnimationFrame(this.resizeCanvas.bind(this));
-    });
-
+    };
     // Create an array to store the snowflakes
     this.snowflakes = [];
     // Set the number of snowflakes
@@ -251,6 +250,9 @@ export class Snowfall {
 
   // Method to destroy the snowfall and remove the canvas element
   destroy = () => {
+    // Remove the event listener for resize
+    window.removeEventListener("resize", this.resizeHandler);
+    // Remove the canvas and animation frame
     cancelAnimationFrame(this.requestAnimationFrame);
     document.getElementById("snowfall").remove();
     for (let name in this) {
@@ -258,7 +260,5 @@ export class Snowfall {
     }
     // Empty the array of snowflakes
     this.snowflakes = [];
-    // Remove the event listener for resize
-    window.removeEventListener("resize", this.resizeCanvas);
   };
 }
