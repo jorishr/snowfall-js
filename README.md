@@ -82,6 +82,7 @@ const defaultParams = {
     show: true,
     storeUserSettings: true,
     txt: "Snow on/off",
+    txtElemAttributes: [],
     injectCSS: true,
     styles: {
       /* background color of the switch when turned off */
@@ -158,6 +159,8 @@ By default the plugin will look for container elements with `class="snow-animati
 If you want to use the switch functionality simply add one or more container `<div class="snow-animation-switch"></div` elements to your HTML page, for example, one in your header menu or navigation bar and one in your footer area. The behavior of these switches is synchronized, thus if you toggle the animation on/off on one switch, the state of the other switches will be updated automatically. You can add as many switches as you like.
 
 The label text that accompanies the switch can be set in the configuration options object, as well as its position: left-side or right-side of the switch.
+
+#### Styles
 
 You can also configure the styles (colors) that will be applied to the different element components of each switch.
 
@@ -244,6 +247,25 @@ By default this plugin will append a minified CSS file to the DOM (`snowAnimatio
   margin: var(--snow-animation-switch-txtMargin);
 }
 ```
+
+#### Text element attributes
+
+If you want more control over the label text that accompanies the switches, you can add element attributes. For example:
+
+```js
+{
+  txtElemAttributes: [
+    { type: "attribute", name: "id", value: "snow-switch-text" },
+    { type: "data-attribute", name: "txt_id", value: "33" },
+  ];
+
+  // -> <span id="snow-switch-text" data-txt_id="33"></span>
+}
+```
+
+Note the distinction between regular element attributes and data-attributes. The latter is set via the dataset property of the element.
+
+#### No switches
 
 If you only want the snow animation without the ability for the users to turn the animation on or off, you can set the option:
 

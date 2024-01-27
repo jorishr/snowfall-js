@@ -45,8 +45,21 @@ function buildSwitch(i, params) {
 
   textElem.classList.add("snow-animation-switch__text");
   textElem.textContent = params.switches.txt;
+  if (params.switches.txtElemAttributes.length > 0) {
+    setElemAttributes(textElem, params.switches.txtElemAttributes);
+  }
 
   return [inputElem, label, textElem];
+}
+
+function setElemAttributes(elem, attributes) {
+  attributes.forEach((attr) => {
+    if (attr.type === "data-attribute") {
+      elem.dataset[attr.name] = attr.value;
+    } else {
+      elem[attr.name] = attr.value;
+    }
+  });
 }
 
 function injectCSS(params) {

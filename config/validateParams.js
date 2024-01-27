@@ -17,7 +17,7 @@ export function deepMergeWithValidation(defaultConfig, configParams) {
       // Validate if the key exists in the defaultConfig
       if (!(key in defaultConfig)) {
         logWarn(
-          `Warning: '${key}' does not exist in the default configuration. Using default value.`
+          `Warning: '${key}' does not exist in the default configuration and will be ignored.`
         );
         continue;
       }
@@ -32,7 +32,12 @@ export function deepMergeWithValidation(defaultConfig, configParams) {
       }
 
       // Recursive merge for nested objects
-      if (configValue instanceof Object && defaultValue instanceof Object) {
+      if (
+        configValue instanceof Object &&
+        !Array.isArray(configValue) &&
+        defaultValue instanceof Object &&
+        !Array.isArray(defaultValue)
+      ) {
         mergedConfig[key] = deepMergeWithValidation(defaultValue, configValue);
       } else {
         // Overwrite values from configParams into mergedConfig
@@ -53,7 +58,6 @@ export function deepMergeWithValidation(defaultConfig, configParams) {
     mergedConfig.snowfall.count = Math.round(
       mergedConfig.snowfall.count * reduceMultiplier
     );
-    console.log(mergedConfig.snowfall.count);
   }
   return mergedConfig;
 }
