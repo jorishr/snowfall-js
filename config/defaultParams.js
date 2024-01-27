@@ -32,6 +32,7 @@ const defaultParams = {
     show: true,
     storeUserSettings: true,
     txt: "Snow on/off",
+    txtElemAttributes: [],
     injectCSS: true,
     styles: {
       /* background color of the switch when turned off */

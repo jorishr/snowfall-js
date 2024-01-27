@@ -53,6 +53,7 @@ describe("setParams", () => {
         show: false,
         storeUserSettings: true,
         txt: "Snow on/off",
+        txtElemAttributes: [],
         injectCSS: true,
         styles: {
           /* background color of the switch when turned off */
@@ -155,6 +156,7 @@ describe("validateConfigParams", () => {
         show: false,
         storeUserSettings: true,
         txt: "Snow on/off",
+        txtElemAttributes: [],
         injectCSS: true,
         styles: {
           /* background color of the switch when turned off */
