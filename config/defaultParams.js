@@ -27,6 +27,7 @@ const defaultParams = {
     text: "\u2744", // symbol or text of the snowflakes
     color: "#99ccff", // color of the snowflakes
     zIndex: "1000", // adjust according to project stacking context
+    canvasHeightLimit: 0, // 0 = no limit; "1" = 100vh, "2" = 200vh
   },
   switches: {
     show: true,

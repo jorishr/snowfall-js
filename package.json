@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest",
-    "demo": "npx http-server ./ -d false -o /demo"
+    "demo": "npx http-server ./ -d false -o /demo -c-1"
   },
   "repository": {
     "type": "git",
