@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.4] - 2024-01-29
+
+### Added
+
+- Adds configuration option to limit the canvas height.
+
+### Changed
+
+- Minor performance improvements.
+- Bugfix for faulty autostart logic, issue TG-14.
+
 ## [0.0.3] - 2024-01-27
 
 ### Added
@@ -10,7 +21,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
-- Bug fixe for issue TG-11. Resizing the window when the animation is stopped no longer generates errors.
+- Bug fix for issue TG-11. Resizing the window when the animation is stopped no longer generates errors.
 
 ## [0.0.2] - 2024-01-26
 

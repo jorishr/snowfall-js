@@ -21,6 +21,7 @@
  * Version: 1.1.0
  * Date: 2021-11-27T00:00Z
  */
+import { params } from "./index.js";
 
 // Class for creating snowflakes
 export class Snowflake {
@@ -78,10 +79,45 @@ export class Snowflake {
       this.y + this.h >= window.scrollY &&
       this.y - this.h <= window.scrollY + window.innerHeight
     ) {
+      ctx.fillStyle = this.c; // set the color
       ctx.font = this.h + "px Arial, sans-serif"; // set the font and text size
       ctx.fillText(this.t, this.x, this.y); // draw the text with the snowflake symbol
-      ctx.fillStyle = this.c; // set the color
     }
+  };
+
+  // Batch draw the snowflakes for better performance
+  static batchDraw(
+    ctx,
+    snowflakes,
+    scrollX,
+    scrollY,
+    windowWidth,
+    windowHeight
+  ) {
+    //font and fillStyle are the same for all snowflakes
+    ctx.font = snowflakes[0].h + "px Arial, sans-serif";
+    ctx.fillStyle = snowflakes[0].c;
+
+    ctx.beginPath();
+
+    for (let snowflake of snowflakes) {
+      if (snowflake.isVisible(scrollX, scrollY, windowWidth, windowHeight)) {
+        ctx.fillText(snowflake.t, snowflake.x, snowflake.y);
+      }
+    }
+
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  // Check if the snowflake is inside the visible window
+  isVisible = (scrollX, scrollY, windowWidth, windowHeight) => {
+    return (
+      this.x + this.h >= scrollX &&
+      this.x - this.h <= scrollX + windowWidth &&
+      this.y + this.h >= scrollY &&
+      this.y - this.h <= scrollY + windowHeight
+    );
   };
 
   // Method to update the position of the snowflake
@@ -183,7 +219,13 @@ export class Snowfall {
     // Set the width and height of the canvas equal to the width and height of the browser window
     if (window.devicePixelRatio > 1) {
       let scrollWidth = document.documentElement.scrollWidth;
-      let scrollHeight = document.documentElement.scrollHeight;
+      let scrollHeight;
+      if (params.snowfall.canvasHeightLimit !== 0) {
+        scrollHeight = Math.min(
+          document.documentElement.scrollHeight,
+          window.innerHeight * params.snowfall.canvasHeightLimit
+        );
+      } else scrollHeight = document.documentElement.scrollHeight;
       this.canvas.width = scrollWidth * window.devicePixelRatio;
       this.canvas.height = scrollHeight * window.devicePixelRatio;
       this.canvas.style.width = scrollWidth + "px";
@@ -237,13 +279,20 @@ export class Snowfall {
     // Clear the canvas
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    // Loop through the array of snowflakes
+    Snowflake.batchDraw(
+      this.ctx,
+      this.snowflakes,
+      window.scrollX,
+      window.scrollY,
+      window.innerWidth,
+      window.innerHeight
+    );
+
+    // Update the positions of the snowflakes
     for (let snowflake of this.snowflakes) {
-      // Draw the snowflake on the canvas
-      snowflake.draw(this.ctx);
-      // Update the position of the snowflake
       snowflake.update(this.canvas);
     }
+
     // Request a new animation frame
     this.requestAnimationFrame = requestAnimationFrame(this.animateSnowflakes);
   };

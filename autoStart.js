@@ -9,7 +9,7 @@ export function getAutoStart(configParams) {
   logInfo(`User Preference: ${userPreference}`);
 
   // user preferences takes precedence over autoStartConfig
-  if (userPreference) {
+  if (userPreference !== undefined) {
     return userPreference;
   } else return autostartConfig;
 }

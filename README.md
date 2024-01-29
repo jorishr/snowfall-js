@@ -77,6 +77,7 @@ const defaultParams = {
     text: "\u2744", // symbol or text of the snowflakes
     color: "#99ccff", // color of the snowflakes
     zIndex: "1000", // adjust according to project stacking context
+    canvasHeightLimit: 0, // 0 = no limit; "1" = 100vh, "2" = 200vh
   },
   switches: {
     show: true,
@@ -127,6 +128,18 @@ You can set your own date range by changing the following options:
 The date range is validated so you will get an error when, for example, startDay > endDay while startMonth is the same as the endMonth. The animation will run on February 29 in a leap year but you cannot set the start or end date to be February 29.
 
 If you want the code to be loaded all year set `checkDateRange: false`.
+
+### Canvas Height Limit
+
+The snowflakes are drawn on the screen via an HTML Canvas element. By default the height of the canvas will take up the entire scrollable area. This is nice because the snowflakes will dwindle all the way to your footer area. However, on pages with lots of content the performance will become problematic. You'll have to test this yourself but if your page is over 8000 px long, you may want to start limiting the height of the canvas.
+
+```js
+{
+  snowfall: {
+    canvasHeightLimit: 1; // 0 = no limit; 1 = 100vh; 2 = 200vh; 3 = 300vh; etc.
+  }
+}
+```
 
 ### Autostart
 
