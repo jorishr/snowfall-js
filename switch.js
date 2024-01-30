@@ -38,9 +38,7 @@ function buildSwitch(i, params) {
   inputElem.id = `snow-animation-switch__input${i}`;
 
   label.classList.add("snow-animation-switch__label");
-  label.role = "checkbox";
   label.htmlFor = `snow-animation-switch__input${i}`;
-  label.ariaChecked = false;
   label.tabIndex = 0;
 
   textElem.classList.add("snow-animation-switch__text");
