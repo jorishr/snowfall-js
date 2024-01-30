@@ -1,7 +1,7 @@
 {
   "name": "snowfall-js-plugin",
   "description": "Snowfall-js-plugin is a JavaScript library to add some winter magic to your project. This package creates animated snowflakes on a web page using HTML5 canvas and JavaScript classes, no dependencies. You can customize the number, size, speed, color and text of the snowflakes, and enjoy the beautiful snow falling effect on your website or app. Snowfall.js-plugin is easy to use and compatible with most browsers and devices. The plugins comes with optional features: keyboard focusable and customizable switches to allow the users to toggle the animation on/off — simply add one or more containers with the proper class name; store the user preferences in local storage; enable hardware restriction to automatically disable the animation on low end devices; enable a date range: for example, only activate the animation during winter months.",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "index.js",
   "type": "module",
   "bin": {
