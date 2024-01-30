@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.5] - 2024-01-30
+
+- Minor bug fix for issue TG-16, misplaced aria attribute.
+
 ## [0.0.4] - 2024-01-29
 
 ### Added
