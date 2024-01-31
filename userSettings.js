@@ -1,5 +1,10 @@
 import { logInfo, logError } from "./logger.js";
 
+/**
+ * Checks the user preference for running the snowfall animation.
+ *
+ * @returns {(boolean|undefined)} - True if the animation should run, false if it should not, undefined if not specified.
+ */
 export function checkUserSettings() {
   if (getUserSettings().runSnowfallAnimation) {
     return true;
@@ -7,6 +12,11 @@ export function checkUserSettings() {
   else return undefined;
 }
 
+/**
+ * Retrieves user settings from local storage.
+ *
+ * @returns {Object|null} - User settings object or null if there's an error.
+ */
 export function getUserSettings() {
   try {
     const settingsJSON = localStorage.getItem("userSettings");
@@ -18,6 +28,11 @@ export function getUserSettings() {
   }
 }
 
+/**
+ * Sets user settings in local storage.
+ *
+ * @param {Object} newSettings - New user settings to be merged with existing ones.
+ */
 export function setUserSettings(newSettings) {
   try {
     const existingSettingsJSON = localStorage.getItem("userSettings");
