@@ -9,6 +9,33 @@ The plugins comes with optional features:
 - enable hardware restriction to automatically disable the animation on low end devices;
 - enable a date range: for example, only activate the animation during winter months.
 
+---
+
+- [Snowfall-js-plugin](#snowfall-js-plugin)
+  - [Installation](#installation)
+    - [How to add the plugin to your website project](#how-to-add-the-plugin-to-your-website-project)
+  - [Demo](#demo)
+  - [Configuration options](#configuration-options)
+    - [Default configuration](#default-configuration)
+    - [Hardware check](#hardware-check)
+    - [Date range](#date-range)
+    - [Snowflake styles and canvas options](#snowflake-styles-and-canvas-options)
+      - [Snowflake styles](#snowflake-styles)
+      - [Canvas Height Limit](#canvas-height-limit)
+    - [Autostart](#autostart)
+    - [Accessibility](#accessibility)
+    - [Switches](#switches)
+      - [Styles](#styles)
+      - [Text element attributes](#text-element-attributes)
+      - [No switches](#no-switches)
+    - [Store user settings](#store-user-settings)
+    - [Log level](#log-level)
+    - [How to use a custom configuration object](#how-to-use-a-custom-configuration-object)
+  - [Developer documentation](#developer-documentation)
+    - [Issues](#issues)
+  - [License](#license)
+  - [Authors](#authors)
+
 ## Installation
 
 To use the Snowfall-js-plugin, you need to install the NPM package:
@@ -38,7 +65,7 @@ This will run the plugin with the default configuration. See [Configuration Opti
 The package comes with a static demo page whereby you can experiment with the various configuration options for the snowfall animation and the custom on/off toggle switches. After you've installed the package run this command:
 
 ```bash
-npx snowfall-js-plugin demo
+npx snowfall-js-demo
 ```
 
 This will spin up a http-server on localhost port 8080 and serve the demo page.
@@ -357,6 +384,14 @@ document.addEventListener("DOMContentLoaded", function () {
 ```
 
 The parameters you pass via the object will be validated first and the values from the default configuration will be used as a fallback. Check for warnings or errors in your browser developer console. It is recommended to copy and paste the default configuration object and modify the settings according to your needs.
+
+## Developer documentation
+
+This README should contain all the information you need to configure and integrate the plugin into your website application. If you want to dig deeper, you can consult the JSDoc documentation. Most JavaScript files have JSDoc style comments for every function. You can find the JSDoc documentation in the `docs` folder of the project, or you can conveniently run the following command: `npx snowfall-js-docs` which will spin up a http-server and serve the JSDoc documentation HTML files in your browser.
+
+### Issues
+
+If you find bug or issues related to this project, please open an issue in the GitHub repository: [snowfall-js-plugin](https://github.com/jorishr/snowfall-js-plugin/issues)
 
 ## License
 

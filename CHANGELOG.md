@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0] - 2024-01-31
+
+- Added JSDoc support for generating documentation.
+- Code review process completed (TG-12).
+
 ## [0.0.6] - 2024-01-31
 
 - Important documentation changes (TG-17).
