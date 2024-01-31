@@ -1,0 +1,10 @@
+{
+  "source": {
+    "include": ["./", "./config", "README.md"]
+  },
+  "sourceType": "module",
+  "plugins": ["plugins/markdown", "plugins/summarize"],
+  "opts": {
+    "destination": "./docs"
+  }
+}

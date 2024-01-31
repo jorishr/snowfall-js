@@ -1,5 +1,11 @@
 import { logError, logInfo } from "./logger.js";
 
+/**
+ * Checks if the date range values are valid and if the current date is within the specified date range.
+ *
+ * @param {Object} dateRange - Object containing startMonth, startDay, endMonth, and endDay.
+ * @returns {boolean} - True if the current date is within the range, false otherwise.
+ */
 export function checkDateRange(dateRange = {}) {
   let result = false;
   let validDateRange = true;
@@ -25,6 +31,12 @@ export function checkDateRange(dateRange = {}) {
   return result;
 }
 
+/**
+ * Validates the currentDate and passes the currentDate and dateRange values to the final verification check.
+ *
+ * @param {Object} dateRange - Object containing startMonth, startDay, endMonth, and endDay.
+ * @returns {boolean} - True if the current date is within the range, false otherwise.
+ */
 function checkCurrentDate(dateRange) {
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth() + 1;
@@ -46,6 +58,17 @@ function checkCurrentDate(dateRange) {
   );
 }
 
+/**
+ * Checks if the current date is within the specified date range.
+ *
+ * @param {number} currentMonth - Current month.
+ * @param {number} currentDay - Current day.
+ * @param {number} startMonth - Start month of the date range.
+ * @param {number} endMonth - End month of the date range.
+ * @param {number} startDay - Start day of the date range.
+ * @param {number} endDay - End day of the date range.
+ * @returns {boolean} - True if the current date is within the range, false otherwise.
+ */
 function isInDateRange(
   currentMonth,
   currentDay,
@@ -72,6 +95,13 @@ function isInDateRange(
   }
 }
 
+/**
+ * Helper function to checks if the provided month and day form a valid date.
+ *
+ * @param {number} month - Month to check.
+ * @param {number} day - Day to check.
+ * @returns {boolean} - True if the provided month and day form a valid date, false otherwise.
+ */
 export function isValidDate(month, day) {
   if (typeof month !== "number" || typeof day !== "number") {
     return false;
@@ -89,6 +119,12 @@ export function isValidDate(month, day) {
   return true;
 }
 
+/**
+ * Gets the number of days in a given month.
+ *
+ * @param {number} month - Month for which to get the number of days.
+ * @returns {number} - Number of days in the specified month.
+ */
 function getDaysInMonth(month) {
   const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   return daysInMonth[month - 1];
