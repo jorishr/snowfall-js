@@ -14,6 +14,7 @@ const defaultParams = {
   },
   autostartOnMobile: true,
   autostartOnDesktop: true,
+  screenWidthThreshold: 768,
   checkReducedMotionPreference: true,
   setReducedMotion: "disable", // "disable" or "reduce"
   reduceMultiplier: 0.5,

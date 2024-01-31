@@ -68,6 +68,7 @@ const defaultParams = {
   },
   autostartOnMobile: true,
   autostartOnDesktop: true,
+  screenWidthThreshold: 768, // pixel value, use a number without px
   checkReducedMotionPreference: true,
   setReducedMotion: "disable", // "disable" or "reduce"
   reduceMultiplier: 0.5,
@@ -161,9 +162,9 @@ By default, the animation will start automatically. That is, if it passes the ha
 
 You can also leave the decision to run the animation up to the user. If you choose to do so, make sure you have one or more switches available on your site (see [switches](#switches)). The user then needs to manually turn the animation on.
 
-The configuration offers two settings: autoStartOnMobile and autoStartOnDesktop. Both are set to `true` by default. This setting is based on the `window.innerWidth >= 768px` condition. There should be no performance issues on mid-range to high-end mobile devices nor on desktop.
+The configuration offers two settings: autoStartOnMobile and autoStartOnDesktop. Both are set to `true` by default. This setting is based on the `window.innerWidth >= screenWidthThreshold` condition. The default value to differentiate between small and large screens is set to 768 pixels.
 
-However, if your website already contains lots of scroll animations or other JavaScript code that requires lots of calculations, you may want to consider disabling autoStart for mobile devices. The hardware check mentioned above will already filter out low-end devices but hardware checks via the browser are not always reliable. This provides you with an extra option.
+There should be no performance issues on mid-range to high-end mobile devices nor on desktop.However, if your website already contains lots of scroll animations or other JavaScript code that requires lots of calculations, you may want to consider disabling autoStart for mobile devices. The hardware check mentioned above will already filter out low-end devices but hardware checks via the browser are not always reliable. The autostart settings provide you with an extra option.
 
 ### Accessibility
 
