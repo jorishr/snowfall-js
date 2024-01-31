@@ -3,6 +3,12 @@ import { checkHardware } from "./checkHardware.js";
 import { logInfo } from "./logger.js";
 import { checkReducedMotionConfig } from "./prefersReducedMotion.js";
 
+/**
+ * Determines whether the snowfall animation can be run based on configuration parameters, hardware check, dateRange check and accessibility check.
+ *
+ * @param {Object} configParams - Configuration parameters.
+ * @returns {boolean} - True if the animation can be run, false otherwise.
+ */
 export function canRunAnimation(configParams) {
   let hardwareCheck;
   let insideDateRange;
