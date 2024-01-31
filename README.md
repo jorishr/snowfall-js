@@ -24,7 +24,7 @@ npm install snowfall-js-plugin
 After you've installed the plugin package, import the plugin into your project's app.js or vendor.js file.
 
 ```js
-import { snowAnimationStart } from "snowfall-animation-plugin";
+import { snowAnimationStart } from "snowfall-js-plugin";
 
 document.addEventListener("DOMContentLoaded", function () {
   snowAnimationStart();
