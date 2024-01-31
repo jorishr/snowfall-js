@@ -44,16 +44,16 @@ describe("setParams", () => {
         minRadius: 10, // min size of snowflakes
         maxRadius: 30, // max size of snowflakes
         minSpeed: 3, // min fall speed of snowflakes
-        maxSpeed: 10, // max fall speed of snowflakes
+        maxSpeed: 6, // max fall speed of snowflakes
         text: "\u2744", // symbol or text of the snowflakes
         color: "#99ccff", // color of the snowflakes
         zIndex: "1000", // adjust according to project stacking context
-        canvasHeightLimit: 0, // 0 = no limit; "1" = 100vh, "2" = 200vh
+        canvasHeightLimit: 0, // 0 = no limit; 1 = 100vh, 2 = 200vh
       },
       switches: {
         show: false,
         storeUserSettings: true,
-        txt: "Snow on/off",
+        txt: "Snow",
         txtElemAttributes: [],
         injectCSS: true,
         styles: {
@@ -65,7 +65,7 @@ describe("setParams", () => {
           toggleClr: "#ffffff",
           /* color and position of the text next to the switch */
           txtClr: "rgba(33, 37, 41, 1)", // #212529
-          txtPosition: "2", // 1 = left of switch or 2 = right of switch
+          txtPosition: "2", // "1" = left of switch or "2" = right of switch
         },
       },
     };
@@ -148,16 +148,16 @@ describe("validateConfigParams", () => {
         minRadius: 10, // min size of snowflakes
         maxRadius: 54, // max size of snowflakes
         minSpeed: 3, // min fall speed of snowflakes
-        maxSpeed: 10, // max fall speed of snowflakes
+        maxSpeed: 6, // max fall speed of snowflakes
         text: "\u2744", // symbol or text of the snowflakes
         color: "#99ccff", // color of the snowflakes
         zIndex: "1000", // adjust according to project stacking context
-        canvasHeightLimit: 0, // 0 = no limit; "1" = 100vh, "2" = 200vh
+        canvasHeightLimit: 0, // 0 = no limit; 1 = 100vh, 2 = 200vh
       },
       switches: {
         show: false,
         storeUserSettings: true,
-        txt: "Snow on/off",
+        txt: "Snow",
         txtElemAttributes: [],
         injectCSS: true,
         styles: {
@@ -169,7 +169,7 @@ describe("validateConfigParams", () => {
           toggleClr: "#ffffff",
           /* color and position of the text next to the switch */
           txtClr: "rgba(33, 37, 41, 1)", // #212529
-          txtPosition: "2", // 1 = left of switch or 2 = right of switch
+          txtPosition: "2", // "1" = left of switch or "2" = right of switch
         },
       },
     };

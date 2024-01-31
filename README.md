@@ -35,21 +35,25 @@ This will run the plugin with the default configuration. See [Configuration Opti
 
 ## Demo
 
-The package comes with a static demo page whereby you can experiment with the various configuration options for the snowfall animation and the custom on/off toggles. After you've installed the package run this command:
+The package comes with a static demo page whereby you can experiment with the various configuration options for the snowfall animation and the custom on/off toggle switches. After you've installed the package run this command:
 
 ```bash
 npx snowfall-js-plugin demo
 ```
 
-This will spin up a http-server on localhost port 8080 and serve the demo page. _Note:_ you may be prompted to install http-server as a dev dependency. Once installed, click on the output link in the terminal to open the demo in your browser (localhost:8080/demo). If you see a directory list, click on the demo folder.
+This will spin up a http-server on localhost port 8080 and serve the demo page.
 
-Once you've found your preferred configuration options, proceed to defining a custom configuration object.
+_Note:_ you may be prompted to install http-server as a dev dependency. Once installed, click on the output link in the terminal to open the demo in your browser (localhost:8080/demo). If you see a directory list, click on the demo folder.
+
+The demo runs with `logLevel: "info"`, so you can check the console for informative messages about what is going on in the background.
+
+The page that is served contains a form with all most of the configuration options. Experiment until you you've found your preferred configuration options. Next, proceed to defining a custom configuration object.
 
 ## Configuration options
 
 ### Default configuration
 
-Below you find the default configuration object. Most of the settings are self-explanatory but continue reading below for a more detailed information.
+Below you find the default configuration object. Most of the settings are self-explanatory but continue reading below for a more detailed explanation.
 
 ```js
 const defaultParams = {
@@ -69,20 +73,20 @@ const defaultParams = {
   reduceMultiplier: 0.5,
   // experimental: reduces snowfall count by 50%, use a value between 0.1-0.9
   snowfall: {
-    count: 100, // number of snowflakes
+    count: 33, // number of snowflakes
     minRadius: 10, // min size of snowflakes
     maxRadius: 30, // max size of snowflakes
     minSpeed: 3, // min fall speed of snowflakes
-    maxSpeed: 10, // max fall speed of snowflakes
+    maxSpeed: 6, // max fall speed of snowflakes
     text: "\u2744", // symbol or text of the snowflakes
     color: "#99ccff", // color of the snowflakes
     zIndex: "1000", // adjust according to project stacking context
-    canvasHeightLimit: 0, // 0 = no limit; "1" = 100vh, "2" = 200vh
+    canvasHeightLimit: 0, // 0 = no limit; 1 = 100vh, 2 = 200vh
   },
   switches: {
     show: true,
     storeUserSettings: true,
-    txt: "Snow on/off",
+    txt: "Snow",
     txtElemAttributes: [],
     injectCSS: true,
     styles: {
@@ -94,7 +98,7 @@ const defaultParams = {
       toggleClr: "#ffffff",
       /* color and position of the text next to the switch */
       txtClr: "rgba(33, 37, 41, 1)", // #212529
-      txtPosition: "2", // 1 = left of switch or 2 = right of switch
+      txtPosition: "2", // "1" = left of switch or "2" = right of switch
     },
   },
 };
@@ -133,18 +137,20 @@ If you want the code to be loaded all year set `checkDateRange: false`.
 
 #### Snowflake styles
 
-Most options are self-explanatory: For example, "count" is the number of snowflakes that are rendered on the canvas at any given time. There is no minimum or maximum but take into account that the browser will have to perform calculations on each snowflake. The calculations and drawings are batched together but you will notice performance issues if you set your value too high. The recommended maximum is 100.
+Most options are self-explanatory. For example, "count" is the number of snowflakes that are rendered on the canvas at any given time. There is no minimum or maximum but take into account that the browser will have to perform calculations on each snowflake. The calculations and canvas drawings are batched together but you will notice performance issues if you set your value too high. The recommended maximum is 100.
 
-The minRadius and maxRadius determine the size of the snowflakes.
+The minRadius and maxRadius determine the size of the snowflakes. By default you get a nice mixture of small and large snowflakes but adjust to your own taste.
+
+The minSpeed and maxSpeed values determine how fast the snowflakes dwindle down. This is related to the snowflake size. Bigger flakes will fall faster than smaller ones. Take into account that some people may experience discomfort with fast moving objects. The recommended maxSpeed value is 6.
 
 #### Canvas Height Limit
 
-The snowflakes are drawn on the screen via an HTML Canvas element. By default the height of the canvas will take up the entire scrollable area. This is nice because the snowflakes will dwindle all the way to your footer area. However, on pages with lots of content the performance will become problematic. You'll have to test this yourself but if your page is over 8000 px long, you may want to start limiting the height of the canvas.
+The snowflakes are drawn on the screen via an HTML Canvas element. By default the height of the canvas will take up the entire scrollable area. This is nice because the snowflakes will dwindle all the way to your footer area. However, on pages with lots of content the performance will become problematic. You'll have to test this yourself but if your page is over 8000px long, you may want to start limiting the height of the canvas.
 
 ```js
 {
   snowfall: {
-    canvasHeightLimit: 1; // 0 = no limit; 1 = 100vh; 2 = 200vh; 3 = 300vh; etc.
+    canvasHeightLimit: 1, // 0 = no limit; 1 = 100vh; 2 = 200vh; 3 = 300vh; etc.
   }
 }
 ```
@@ -161,7 +167,9 @@ However, if your website already contains lots of scroll animations or other Jav
 
 ### Accessibility
 
-The switches are keyboard focusable and can be turned on and off by pressing the `Enter` key. Some users can experience discomfort with lots of moving animations on a screen, see [MDN, Prefers Reduced Motion](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion). When this setting is detected the plugin offers two options for you to configure: disable the animation entirely or reduce the number of moving snowflakes by a percentage of your choice. The plugin will check the browser settings via the method `window.mediaMatch('prefers-reduced-motion')` and apply the setting of your choice (disable or reduce). The default option is to disable the animation.
+The switches are keyboard focusable and can be turned on and off by pressing the `Enter` key.
+
+Some users can experience discomfort with lots of moving animations on a screen, see [MDN, Prefers Reduced Motion](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion). When this type of browser setting is detected the plugin offers two options for you to configure: disable the animation entirely or reduce the number of moving snowflakes by a percentage of your choice. The plugin will check the browser settings via the method `window.mediaMatch('prefers-reduced-motion')` and apply the setting of your choice (disable or reduce). The default option is to disable the animation.
 
 ```js
 {
@@ -187,7 +195,13 @@ You can also configure the styles (colors) that will be applied to the different
 
 The switches are responsive to font-size so you can make then bigger or smaller by playing around with font-size on the parent element.
 
-By default this plugin will append a minified CSS file to the DOM (`snowAnimationSwitchStyles.css`). If you don't want this behavior, you should add these styles (or your own) manually to your project's (S)CSS and set the option `injectCSS: false` in the custom configuration object.
+By default this plugin will append a minified CSS file to the DOM (`snowAnimationSwitchStyles.css`).
+
+_Note about build tools:_ If your website project uses a build tool like [ParcelJs](https://parceljs.org/) the additional stylesheet will be picked up automatically. You don't need to do extra work. However, if you rely on a more custom build setup with Gulp, Grunt and/or Webpack you might have to do some extra configuration work in your build tools — especially in production, to make sure that the minified css stylesheet is included.
+
+You also have the option to add these styles (or your own) manually to your project's (S)CSS. If that is the case set the option `injectCSS: false` in the custom configuration object.
+
+Below you find the CSS that is included in the snowfall-js-plugin stylesheet.
 
 ```css
 /* The switch has various components: 
@@ -269,6 +283,8 @@ By default this plugin will append a minified CSS file to the DOM (`snowAnimatio
 }
 ```
 
+Take a look at the file [switch.js](./switch.js) to see how and where this CSS file is appended to the DOM.
+
 #### Text element attributes
 
 If you want more control over the label text that accompanies the switches, you can add element attributes. For example:
@@ -319,8 +335,10 @@ The default log level will only log errors to the browser console. During develo
 You can pass a customized configuration object to the `snowAnimationStart()` function. For example:
 
 ```js
+import { snowAnimationStart } from "snowfall-js-plugin";
+
 const customConfig = {
-  logLevel: "info", // default or info
+  logLevel: "info", // "default" or "info"
   checkHardware: false,
   snowfall: {
     count: 33,
