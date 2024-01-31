@@ -133,7 +133,7 @@ function stopAnimation(event, params) {
 }
 
 function startAnimation(event, params) {
-  snowfallState.snowfallInstance = initSnowfall();
+  snowfallState.snowfallInstance = initSnowfall(params.snowfall);
   snowfallState.isAnimationRunning = true;
   logInfo("Animation started.");
   if (params.switches.storeUserSettings)

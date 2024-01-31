@@ -129,7 +129,15 @@ The date range is validated so you will get an error when, for example, startDay
 
 If you want the code to be loaded all year set `checkDateRange: false`.
 
-### Canvas Height Limit
+### Snowflake styles and canvas options
+
+#### Snowflake styles
+
+Most options are self-explanatory: For example, "count" is the number of snowflakes that are rendered on the canvas at any given time. There is no minimum or maximum but take into account that the browser will have to perform calculations on each snowflake. The calculations and drawings are batched together but you will notice performance issues if you set your value too high. The recommended maximum is 100.
+
+The minRadius and maxRadius determine the size of the snowflakes.
+
+#### Canvas Height Limit
 
 The snowflakes are drawn on the screen via an HTML Canvas element. By default the height of the canvas will take up the entire scrollable area. This is nice because the snowflakes will dwindle all the way to your footer area. However, on pages with lots of content the performance will become problematic. You'll have to test this yourself but if your page is over 8000 px long, you may want to start limiting the height of the canvas.
 
