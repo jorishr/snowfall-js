@@ -20,32 +20,60 @@
  *
  * Version: 1.1.0
  * Date: 2021-11-27T00:00Z
+ *
+ * Date Modified: 2024-01-31
+ * The current code below is a fork of the original with minor additions,
+ * optimization and extensions. The same license applies.
+ *
+ * Contributor: Joris Raymaekers (https://liondigits.com/)
+ * Contact: joris@liondigits.com
+ * Github: https://github.com/snowfall-js-plugin
  */
 import { params } from "./index.js";
 
-// Class for creating snowflakes
+/**
+ * Class representing a snowflake on the canvas.
+ */
 export class Snowflake {
-  // Constructor takes x and y coordinates, radius, speed and color of the snowflake
+  /**
+   * Creates a snowflake instance with random coordinates, font size, speed, color, and text.
+   *
+   * @param {HTMLCanvasElement} canvas - The canvas element.
+   * @param {number} h - The font size / height of snowflake.
+   * @param {number} s - The speed.
+   * @param {string} c - The color.
+   * @param {string} t - The text.
+   */
   constructor(canvas, h, s, c, t) {
-    // Generate a random x coordinate within the canvas width
-    this.x = Math.random() * canvas.width; // x coordinate
-    // Generate a random y coordinate within the canvas height
-    this.y = Math.random() * canvas.height; // y coordinate
-    this.h = h; // font size
-    this.s = s; // speed
-    this.c = c; // color
-    this.t = t; // text
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.h = h;
+    this.s = s;
+    this.c = c;
+    this.t = t;
   }
 
-  // Function to calculate the new position of the snowflake relative to the edge of the canvas
+  /**
+   * Calculates and returns the new position of the snowflake relative to the edge of the canvas.
+   *
+   * @param {number} oldPosition - The old position of the snowflake.
+   * @param {number} oldCanvasSize - The old size of the canvas.
+   * @param {number} newCanvasSize - The new size of the canvas.
+   * @returns {number} - The new position of the snowflake.
+   */
   calculateNewPosition = (oldPosition, oldCanvasSize, newCanvasSize) => {
-    // Calculate the old position of the snowflake from the edge in percentage
     let percentage = oldPosition / (oldCanvasSize / 100);
-    // Calculate the new position of the snowflake from the edge in pixels
-    // Return the new position
     return (newCanvasSize / 100) * percentage;
   };
 
+  /**
+   * Updates the position of the snowflake after canvas resize.
+   *
+   * @param {number} oldCanvasWidth - The old canvas width.
+   * @param {number} oldCanvasHeight - The old canvas height.
+   * @param {number} newCanvasWidth - The new canvas width.
+   * @param {number} newCanvasHeight - The new canvas height.
+   */
   updateAfterCanvasResize = (
     oldCanvasWidth,
     oldCanvasHeight,
@@ -53,7 +81,6 @@ export class Snowflake {
     newCanvasHeight
   ) => {
     if (oldCanvasWidth !== newCanvasWidth) {
-      // Call the function to calculate the new position of the snowflake from the left edge
       this.x = this.calculateNewPosition(
         this.x,
         oldCanvasWidth,
@@ -61,7 +88,6 @@ export class Snowflake {
       );
     }
     if (oldCanvasHeight !== newCanvasHeight) {
-      // Call the function to calculate the new position of the snowflake from the top edge
       this.y = this.calculateNewPosition(
         this.y,
         oldCanvasHeight,
@@ -70,7 +96,11 @@ export class Snowflake {
     }
   };
 
-  // Method to draw the snowflake on the canvas
+  /**
+   * Draws the snowflake on the canvas if it is within the visible area.
+   *
+   * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+   */
   draw = (ctx) => {
     // Check if the snowflake is within the visible area
     if (
@@ -85,7 +115,16 @@ export class Snowflake {
     }
   };
 
-  // Batch draw the snowflakes for better performance
+  /**
+   * Batch draws snowflakes for better performance.
+   *
+   * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+   * @param {Snowflake[]} snowflakes - Array of snowflake instances.
+   * @param {number} scrollX - The horizontal scroll position.
+   * @param {number} scrollY - The vertical scroll position.
+   * @param {number} windowWidth - The window width.
+   * @param {number} windowHeight - The window height.
+   */
   static batchDraw(
     ctx,
     snowflakes,
@@ -110,7 +149,15 @@ export class Snowflake {
     ctx.fill();
   }
 
-  // Check if the snowflake is inside the visible window
+  /**
+   * Checks if the snowflake is inside the visible window.
+   *
+   * @param {number} scrollX - The horizontal scroll position.
+   * @param {number} scrollY - The vertical scroll position.
+   * @param {number} windowWidth - The window width.
+   * @param {number} windowHeight - The window height.
+   * @returns {boolean} - True if visible, false otherwise.
+   */
   isVisible = (scrollX, scrollY, windowWidth, windowHeight) => {
     return (
       this.x + this.h >= scrollX &&
@@ -120,11 +167,17 @@ export class Snowflake {
     );
   };
 
-  // Method to update the position of the snowflake
+  /**
+   * Updates the position of the snowflake.
+   *
+   * @param {HTMLCanvasElement} canvas - The canvas element.
+   */
   update = (canvas) => {
-    this.y += this.s; // increase the y coordinate by the speed
-    // if the snowflake goes beyond the bottom edge of the canvas, move it to the top
+    // increase the y coordinate by the speed
+    this.y += this.s;
+
     if (this.s > 0) {
+      // if the snowflake goes beyond the bottom edge of the canvas, move it to the top
       if (this.y > canvas.height) {
         this.y = -this.h;
         this.x = Math.random() * canvas.width;
@@ -138,10 +191,24 @@ export class Snowflake {
   };
 }
 
+/**
+ * Class representing the snowfall animation.
+ */
 export class Snowfall {
   requestAnimationFrame;
-
-  // Constructor takes parameters for creating snowflakes
+  /**
+   * Create a Snowfall instance with customizable options.
+   *
+   * @param {Object} options - Configuration options for the snowfall animation.
+   * @param {number} options.count - Number of snowflakes.
+   * @param {number} options.minRadius - Minimum radius of snowflakes.
+   * @param {number} options.maxRadius - Maximum radius of snowflakes.
+   * @param {number} options.minSpeed - Minimum falling speed of snowflakes.
+   * @param {number} options.maxSpeed - Maximum falling speed of snowflakes.
+   * @param {string} options.text - Text or symbol representing the snowflake.
+   * @param {string} options.color - Color of the snowflakes.
+   * @param {string} options.zIndex - Z-index of the snowfall canvas.
+   */
   constructor(options = {}) {
     let {
       count = 100,
@@ -176,38 +243,31 @@ export class Snowfall {
 
     document.body.append(snowfieldCanvas);
 
-    // Get the canvas element by id
     this.canvas = snowfieldCanvas;
-    // Get the drawing context on the canvas
     this.ctx = this.canvas.getContext("2d");
-    // Set the width and height of the canvas equal to the width and height of the browser window
+
     this.resizeCanvas();
-    // Add an event handler to resize the canvas when the window size changes
     window.addEventListener("resize", this.resizeHandler);
     this.resizeHandler = () => {
       requestAnimationFrame(this.resizeCanvas.bind(this));
     };
-    // Create an array to store the snowflakes
+
     this.snowflakes = [];
-    // Set the number of snowflakes
     this.count = count;
-    // Set the minimum and maximum radius of the snowflakes
     this.minRadius = minRadius;
     this.maxRadius = maxRadius;
-    // Set the speed of the snowflakes
     this.minSpeed = minSpeed;
     this.maxSpeed = maxSpeed;
-    // Set the color of the snowflakes
     this.color = color;
-    // Set the text
     this.text = text;
-    // Call the function to create the snowflakes
+
     this.createSnowflakes();
-    // Call the function to animate the snowflakes
     this.animateSnowflakes();
   }
 
-  // Function to resize the canvas
+  /**
+   * Resize the canvas and update snowflake positions after a window resize.
+   */
   resizeCanvas = () => {
     let oldCanvasWidth, oldCanvasHeight;
     if (this.snowflakes) {
@@ -235,13 +295,14 @@ export class Snowfall {
       this.canvas.width = document.documentElement.scrollWidth;
       this.canvas.height = document.documentElement.scrollHeight;
     }
+
     this.canvas.style.display = "";
+
     if (this.snowflakes) {
       let newCanvasWidth = this.canvas.width;
       let newCanvasHeight = this.canvas.height;
-      // Loop through the array of snowflakes
+
       for (let snowflake of this.snowflakes) {
-        // Update the position of the snowflake after resizing the canvas
         snowflake.updateAfterCanvasResize(
           oldCanvasWidth,
           oldCanvasHeight,
@@ -252,14 +313,17 @@ export class Snowfall {
     }
   };
 
-  // Function to create snowflakes and add them to the array
+  /**
+   * Create snowflakes based on the specified count and parameters.
+   * Generates a random radius (r) within the minimum and maximum radius.
+   * Generates a relative value (rp) which is the position inside the specified
+   * radius range: 0-100. This is is used to adjust the speed of the snowflake * according to its size.
+   * Generates the speed (s) based on the size of the snowflake.
+   */
   createSnowflakes = () => {
-    // Loop through the number of snowflakes
     for (let i = 0; i < this.count; i++) {
-      // Generate a random radius within the minimum and maximum radius
       let r =
         this.minRadius + Math.random() * (this.maxRadius - this.minRadius);
-      // Generate the speed based on the size of the snowflake
       let rp;
       if (this.minRadius !== this.maxRadius) {
         rp = (r - this.minRadius) / ((this.maxRadius - this.minRadius) / 100);
@@ -267,16 +331,16 @@ export class Snowfall {
         rp = 100;
       }
       let s = this.minSpeed + ((this.maxSpeed - this.minSpeed) / 100) * rp;
-      // Create a new snowflake object with the given parameters
+
       let snowflake = new Snowflake(this.canvas, r, s, this.color, this.text);
-      // Add the snowflake to the array
       this.snowflakes.push(snowflake);
     }
   };
 
-  // Function to animate the snowflakes
+  /**
+   * Animate the snowflakes by clearing the canvas and updating their positions.
+   */
   animateSnowflakes = () => {
-    // Clear the canvas
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     Snowflake.batchDraw(
@@ -297,13 +361,14 @@ export class Snowfall {
     this.requestAnimationFrame = requestAnimationFrame(this.animateSnowflakes);
   };
 
-  // Method to destroy the snowfall and remove the canvas element
+  /**
+   * Destroy the snowfall animation and remove the canvas element.
+   */
   destroy = () => {
-    // Remove the event listener for resize
     window.removeEventListener("resize", this.resizeHandler);
-    // Remove the canvas and animation frame
     cancelAnimationFrame(this.requestAnimationFrame);
     document.getElementById("snowfall").remove();
+
     for (let name in this) {
       delete this[name];
     }
