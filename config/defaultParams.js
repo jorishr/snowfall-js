@@ -1,3 +1,8 @@
+/**
+ * Retrieves the default parameters for the application.
+ *
+ * @returns {object} The default parameters object.
+ */
 export function getDefaultParams() {
   return defaultParams;
 }

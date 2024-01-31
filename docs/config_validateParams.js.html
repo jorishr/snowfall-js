@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: config/validateParams.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: config/validateParams.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { getDefaultParams } from "./defaultParams.js";
+import { logInfo, logWarn } from "../logger.js";
+import { validateReduceMultiplier } from "../prefersReducedMotion.js";
+
+/**
+ * Sets the final parameters for the snowfall-js-plugin, merging the user provided configuration with the defaults parameters.
+ *
+ * @param {Object} configParams - User defined configuration parameters.
+ * @returns {Object} - Merged and validated parameters.
+ */
+export function setParams(configParams) {
+  const defaultParams = getDefaultParams();
+  const params = deepMergeWithValidation(defaultParams, configParams);
+  logInfo("Done setting snowfall-js-plugin parameters.");
+  return params;
+}
+
+/**
+ * Performs a deep merge of default and provided configuration parameters with validation.
+ *
+ * @param {Object} defaultConfig - Default configuration parameters.
+ * @param {Object} configParams - Provided configuration parameters.
+ * @returns {Object} - Merged and validated configuration parameters.
+ */
+export function deepMergeWithValidation(defaultConfig, configParams) {
+  const mergedConfig = { ...defaultConfig };
+
+  for (const key in configParams) {
+    if (configParams.hasOwnProperty(key)) {
+      // Validate if the key exists in the defaultConfig
+      if (!(key in defaultConfig)) {
+        logWarn(
+          `Warning: '${key}' does not exist in the default configuration and will be ignored.`
+        );
+        continue;
+      }
+
+      const configValue = configParams[key];
+      const defaultValue = defaultConfig[key];
+
+      // Validate if the types match
+      if (typeof configValue !== typeof defaultValue) {
+        logWarn(`Warning: Type mismatch for '${key}'. Using default value.`);
+        continue;
+      }
+
+      // Recursive merge for nested objects
+      if (
+        configValue instanceof Object &amp;&amp;
+        !Array.isArray(configValue) &amp;&amp;
+        defaultValue instanceof Object &amp;&amp;
+        !Array.isArray(defaultValue)
+      ) {
+        mergedConfig[key] = deepMergeWithValidation(defaultValue, configValue);
+      } else {
+        // Overwrite values from configParams into mergedConfig
+        mergedConfig[key] = configValue;
+      }
+    }
+  }
+  // Additional logic for handling reduced motion preference
+  if (
+    configParams !== null &amp;&amp;
+    configParams.checkReducedMotionPreference === true &amp;&amp;
+    configParams.hasOwnProperty("setReducedMotion") &amp;&amp;
+    configParams.setReducedMotion === "reduce"
+  ) {
+    const reduceMultiplier = validateReduceMultiplier(
+      mergedConfig,
+      configParams
+    );
+    mergedConfig.snowfall.count = Math.round(
+      mergedConfig.snowfall.count * reduceMultiplier
+    );
+  }
+  return mergedConfig;
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Snowfall.html">Snowfall</a></li><li><a href="Snowflake.html">Snowflake</a></li></ul><h3>Global</h3><ul><li><a href="global.html#buildSwitch">buildSwitch</a></li><li><a href="global.html#canRunAnimation">canRunAnimation</a></li><li><a href="global.html#checkCurrentDate">checkCurrentDate</a></li><li><a href="global.html#checkDateRange">checkDateRange</a></li><li><a href="global.html#checkHardware">checkHardware</a></li><li><a href="global.html#checkReducedMotionConfig">checkReducedMotionConfig</a></li><li><a href="global.html#checkUserSettings">checkUserSettings</a></li><li><a href="global.html#deepMergeWithValidation">deepMergeWithValidation</a></li><li><a href="global.html#getAutoStart">getAutoStart</a></li><li><a href="global.html#getAutostartConfig">getAutostartConfig</a></li><li><a href="global.html#getDaysInMonth">getDaysInMonth</a></li><li><a href="global.html#getDefaultParams">getDefaultParams</a></li><li><a href="global.html#getUserSettings">getUserSettings</a></li><li><a href="global.html#handleEvents">handleEvents</a></li><li><a href="global.html#initSnowfall">initSnowfall</a></li><li><a href="global.html#injectCSS">injectCSS</a></li><li><a href="global.html#isInDateRange">isInDateRange</a></li><li><a href="global.html#isValidDate">isValidDate</a></li><li><a href="global.html#logError">logError</a></li><li><a href="global.html#logInfo">logInfo</a></li><li><a href="global.html#logWarn">logWarn</a></li><li><a href="global.html#params">params</a></li><li><a href="global.html#setElemAttributes">setElemAttributes</a></li><li><a href="global.html#setParams">setParams</a></li><li><a href="global.html#setUserSettings">setUserSettings</a></li><li><a href="global.html#snowAnimationStart">snowAnimationStart</a></li><li><a href="global.html#startAnimation">startAnimation</a></li><li><a href="global.html#stopAnimation">stopAnimation</a></li><li><a href="global.html#switchesAppendToDOM">switchesAppendToDOM</a></li><li><a href="global.html#switchesSetupEventHandlers">switchesSetupEventHandlers</a></li><li><a href="global.html#switchesToggleOn">switchesToggleOn</a></li><li><a href="global.html#syncStateOtherSwitches">syncStateOtherSwitches</a></li><li><a href="global.html#validateReduceMultiplier">validateReduceMultiplier</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Jan 31 2024 18:56:24 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
