@@ -12,10 +12,19 @@ export const snowfallState = {
   snowfallInstance: undefined,
   isAnimationRunning: false,
 };
-import { logInfo } from "./logger.js";
+import { logError, logInfo } from "./logger.js";
 
+/**
+ * Global configuration parameters for the snowfall-js-plugin.
+ * @type {Object}
+ */
 export let params = {};
 
+/**
+ * Start the snowfall animation based on the provided configuration parameters.
+ * @param {Object} configParams - Configuration parameters for the snowfall animation.
+ * @returns {void}
+ */
 export function snowAnimationStart(configParams = {}) {
   if (configParams.logLevel === "info") params.logLevel = "info";
   logInfo("Validating snowfall-js-plugin parameters...");
@@ -37,7 +46,18 @@ export function snowAnimationStart(configParams = {}) {
   } else return;
 }
 
+/**
+ * Initializes and returns a Snowfall instance.
+ * @param {Object} params - Configuration parameters for Snowfall.
+ * @returns {Snowfall} - The initialized Snowfall instance.
+ * @throws {Error} - If an error occurs during the initialization.
+ */
 export function initSnowfall(params) {
-  const snowfall = new Snowfall(params);
-  return snowfall;
+  try {
+    const snowfall = new Snowfall(params);
+    return snowfall;
+  } catch (err) {
+    logError("Error initializing Snowfall instance");
+    throw err;
+  }
 }

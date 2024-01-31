@@ -2,6 +2,12 @@ import { getDefaultParams } from "./defaultParams.js";
 import { logInfo, logWarn } from "../logger.js";
 import { validateReduceMultiplier } from "../prefersReducedMotion.js";
 
+/**
+ * Sets the final parameters for the snowfall-js-plugin, merging the user provided configuration with the defaults parameters.
+ *
+ * @param {Object} configParams - User defined configuration parameters.
+ * @returns {Object} - Merged and validated parameters.
+ */
 export function setParams(configParams) {
   const defaultParams = getDefaultParams();
   const params = deepMergeWithValidation(defaultParams, configParams);
@@ -9,6 +15,13 @@ export function setParams(configParams) {
   return params;
 }
 
+/**
+ * Performs a deep merge of default and provided configuration parameters with validation.
+ *
+ * @param {Object} defaultConfig - Default configuration parameters.
+ * @param {Object} configParams - Provided configuration parameters.
+ * @returns {Object} - Merged and validated configuration parameters.
+ */
 export function deepMergeWithValidation(defaultConfig, configParams) {
   const mergedConfig = { ...defaultConfig };
 
@@ -45,6 +58,7 @@ export function deepMergeWithValidation(defaultConfig, configParams) {
       }
     }
   }
+  // Additional logic for handling reduced motion preference
   if (
     configParams !== null &&
     configParams.checkReducedMotionPreference === true &&

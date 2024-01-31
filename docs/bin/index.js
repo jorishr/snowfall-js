@@ -2,10 +2,12 @@
 import { execSync, spawnSync } from "child_process";
 import readline from "readline";
 
-console.log("\x1b[34m=== Snowfall-js-plugin DEMO ===\x1b[0m\n");
+console.log(
+  "\x1b[34m=== Snowfall-js-plugin: Serve JSDoc Documentation ===\x1b[0m\n"
+);
 async function installHttpServer() {
   console.error(
-    "\x1b[33mTo run the demo page http-server must be installed as a dev dependency.\x1b[0m\n"
+    "\x1b[33mTo serve the JSDoc documentation page http-server must be installed as a dev dependency.\x1b[0m\n"
   );
 
   const rl = readline.createInterface({
@@ -55,11 +57,11 @@ try {
   const command = "npx";
   const args = [
     "http-server",
-    "./node_modules/snowfall-js-plugin",
+    "./node_modules/snowfall-js-plugin/docs",
     "-d",
     "false",
     "-o",
-    "/demo",
+    "index.html",
   ];
   const result = spawnSync(command, args, { stdio: "inherit" });
 } catch (e) {

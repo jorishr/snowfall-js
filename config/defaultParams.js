@@ -1,3 +1,8 @@
+/**
+ * Retrieves the default parameters for the application.
+ *
+ * @returns {object} The default parameters object.
+ */
 export function getDefaultParams() {
   return defaultParams;
 }
@@ -14,16 +19,17 @@ const defaultParams = {
   },
   autostartOnMobile: true,
   autostartOnDesktop: true,
+  screenWidthThreshold: 768,
   checkReducedMotionPreference: true,
   setReducedMotion: "disable", // "disable" or "reduce"
   reduceMultiplier: 0.5,
   // experimental: reduces snowfall count by 50%, use value between 0.1-0.9
   snowfall: {
-    count: 100, // number of snowflakes
+    count: 33, // number of snowflakes
     minRadius: 10, // min size of snowflakes
     maxRadius: 30, // max size of snowflakes
     minSpeed: 3, // min fall speed of snowflakes
-    maxSpeed: 10, // max fall speed of snowflakes
+    maxSpeed: 6, // max fall speed of snowflakes
     text: "\u2744", // symbol or text of the snowflakes
     color: "#99ccff", // color of the snowflakes
     zIndex: "1000", // adjust according to project stacking context
@@ -32,7 +38,7 @@ const defaultParams = {
   switches: {
     show: true,
     storeUserSettings: true,
-    txt: "Snow on/off",
+    txt: "Snow",
     txtElemAttributes: [],
     injectCSS: true,
     styles: {

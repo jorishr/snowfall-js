@@ -1,6 +1,12 @@
-import { logInfo, logWarn } from "./logger.js";
+import { logWarn } from "./logger.js";
 
-//see canRunAnimation.js
+/**
+ * Checks the reduced motion configuration based on user preferences and plugin settings.
+ *
+ * @param {Object} configParams - Configuration parameters.
+ * @returns {boolean} - True if reduced motion is allowed, false otherwise.
+ * @see canRunAnimation.js
+ */
 export function checkReducedMotionConfig(configParams) {
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion)"
@@ -13,7 +19,13 @@ export function checkReducedMotionConfig(configParams) {
   }
 }
 
-//see validateParams.js
+/**
+ * Validates the motion reduce multiplier value and provides a fallback value if needed.
+ *
+ * @param {Object} configParams - Configuration parameters.
+ * @returns {number} - Validated motion reduce multiplier value.
+ * @see validateParams.js
+ */
 export function validateReduceMultiplier(configParams) {
   const inRange =
     configParams.reduceMultiplier > 0.1 && configParams.reduceMultiplier < 0.9;
