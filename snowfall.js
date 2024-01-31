@@ -94,14 +94,14 @@ export class Snowflake {
     windowWidth,
     windowHeight
   ) {
-    //font and fillStyle are the same for all snowflakes
-    ctx.font = snowflakes[0].h + "px Arial, sans-serif";
+    // FillStyle is the same for all snowflakes
     ctx.fillStyle = snowflakes[0].c;
 
     ctx.beginPath();
 
     for (let snowflake of snowflakes) {
       if (snowflake.isVisible(scrollX, scrollY, windowWidth, windowHeight)) {
+        ctx.font = snowflake.h + "px Arial, sans-serif";
         ctx.fillText(snowflake.t, snowflake.x, snowflake.y);
       }
     }
