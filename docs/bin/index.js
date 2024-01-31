@@ -60,6 +60,8 @@ try {
     "./node_modules/snowfall-js-plugin/docs",
     "-d",
     "false",
+    "-o",
+    "index.html",
   ];
   const result = spawnSync(command, args, { stdio: "inherit" });
 } catch (e) {
