@@ -27,7 +27,7 @@
  *
  * Contributor: Joris Raymaekers (https://liondigits.com/)
  * Contact: joris@liondigits.com
- * Github: https://github.com/snowfall-js-plugin
+ * Github: https://github.com/jorishr/snowfall-js-plugin
  */
 import { params } from "./index.js";
 
