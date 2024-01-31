@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.6] - 2024-01-31
+
+- Important documentation changes (TG-17).
+- Minor tweak to config parameters loading on re-start.
+- Minor update to batchDraw function to guarantee correct snowflake radius calculations (TG-18).
+
 ## [0.0.5] - 2024-01-30
 
 - Minor bug fix for issue TG-16, misplaced aria attribute.
